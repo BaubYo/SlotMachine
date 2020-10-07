@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SlotMachine</string>
+
+    <!-- A modifier peut etre -->
+    <string name="app_another">Un autre jeu ?</string>
+    <string name="app_replay">Rejouer ?</string>
 </resources>
