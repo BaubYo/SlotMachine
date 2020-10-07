@@ -5,15 +5,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.TextView;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import td1.android.slotmachine.R;
+import td1.android.slotmachine.model.Jeu;
+import td1.android.slotmachine.model.Theme;
 
 public class InformationActivity extends AppCompatActivity {
+    private Jeu jeu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+
+        List<Theme> themes = new ArrayList<>();
+        themes.add(new Theme("RPG"));
+        themes.add(new Theme("Action"));
+        jeu = new Jeu(themes, "Test 2", 2000,  "Dans ce jeu, tu peux jouer !");
+
+        //Récupération des données
+        Intent extraIntent = getIntent();
+        jeu =  (Jeu) extraIntent.getSerializableExtra("EXTRA_GAME");
+
+        ((TextView) findViewById(R.id.information_title)).setText(jeu.getNom());
+        ((TextView) findViewById(R.id.information_information)).setText("Année de sortie: " + jeu.getAnnee() + "\n" + jeu.getResume()); //TODO mettre dans value string
 
         //Pour Renvoyer sur la page wikipedia
         findViewById(R.id.information_wiki).setOnClickListener((v) -> {

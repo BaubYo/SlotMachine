@@ -1,8 +1,12 @@
 package td1.android.slotmachine.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Jeu {
+public class Jeu implements Serializable {
 
     //Create Getter, Setter, Constructor : Alt+Insert
 
@@ -52,4 +56,18 @@ public class Jeu {
     public void setResume(String resume) {
         this.resume = resume;
     }
+/*
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(age);
+        dest.writeString(name);
+        dest.writeList(nicknames);
+    }
+
+ */
 }

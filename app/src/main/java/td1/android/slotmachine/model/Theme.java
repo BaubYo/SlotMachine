@@ -1,6 +1,8 @@
 package td1.android.slotmachine.model;
 
-public class Theme {
+import java.io.Serializable;
+
+public class Theme implements Serializable {
 
 
     private String name;
