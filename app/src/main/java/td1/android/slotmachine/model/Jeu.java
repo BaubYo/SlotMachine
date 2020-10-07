@@ -24,6 +24,7 @@ public class Jeu implements Serializable {
         this.resume = resume;
     }
 
+
     //Getter et Setter
     public List<Theme> getThemes() {
         return themes;

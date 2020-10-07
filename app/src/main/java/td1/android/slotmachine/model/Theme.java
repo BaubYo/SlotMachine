@@ -1,12 +1,13 @@
 package td1.android.slotmachine.model;
 
 import java.io.Serializable;
+import android.graphics.Color;
 
 public class Theme implements Serializable {
 
 
     private String name;
-    private String color;
+    private int color;
 
     //Constructeur
     public Theme(String name){
@@ -14,19 +15,19 @@ public class Theme implements Serializable {
 
         switch(name.toUpperCase()) {
             case "RPG":
-                this.color="@colors/jaune";
+                this.color= Color.rgb(0,0,255);
                 break;
             case "RTS":
-                this.color="@colors/bleu";
+                this.color=Color.rgb(0,255,0);
                 break;
             case "MOBA":
-                this.color="@colors/rouge";
+                this.color=Color.rgb(255,255,0);
                 break;
             case "TACTICAL":
-                this.color="@colors/vert";
+                this.color=Color.rgb(255,0,255);
                 break;
             default:
-                this.color="@colors/blanc";
+                this.color=Color.rgb(0,0,0);
         }
 
 
@@ -39,6 +40,13 @@ public class Theme implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
 
