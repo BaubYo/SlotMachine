@@ -45,7 +45,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/Slot1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -55,17 +55,19 @@
                     android:textSize="22sp" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/Slot2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="#AE5757"
                     android:text="TACTICAL"
                     android:textAlignment="center"
+                    android:textColorLink="#FFFFFF"
                     android:textSize="22sp" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/Slot3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
