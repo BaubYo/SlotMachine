@@ -1,5 +1,6 @@
 package td1.android.slotmachine.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
     //Classe holder
     public class JeuHolder extends RecyclerView.ViewHolder {
         public TextView nom;
+        public int couleur;
 
         public JeuHolder(@NonNull View itemView) {
             super(itemView);
@@ -46,6 +48,7 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
     @Override
     public void onBindViewHolder(@NonNull JeuHolder holder, int position) {
         holder.nom.setText(liste.get(position).getName());
+        holder.nom.setBackgroundColor(liste.get(position).getColor());
     }
 
     //Nombres de thèmes

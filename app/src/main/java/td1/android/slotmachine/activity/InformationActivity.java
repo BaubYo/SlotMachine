@@ -39,7 +39,7 @@ public class InformationActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.information_title)).setText(jeu.getNom());
         ((TextView) findViewById(R.id.information_information)).setText(getString(R.string.app_information_information, jeu.getAnnee(), jeu.getResume()));
 
-        //Lier
+        //Envoie pour affichage des thèmes
         RecyclerView list = (RecyclerView) findViewById(R.id.information_themes);
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         list.setAdapter(new JeuAdapter(themes) {});
