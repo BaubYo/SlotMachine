@@ -82,7 +82,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/information_wikipedia"
+                        android:id="@+id/imageButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/ic_launcher" />
@@ -100,6 +100,7 @@
                 android:id="@+id/information_replay"
                 android:layout_margin="20dp"
                 android:layout_height="wrap_content"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:text="@string/app_replay" />
