@@ -18,19 +18,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.6"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="8" />
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/changer_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_weight="0.1"
                 android:text="..." />
+
+            <TextView
+                android:id="@+id/countDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="8"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -47,35 +52,35 @@
 
                 <TextView
                     android:id="@+id/Slot1"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="STRATEGIE"
+                    android:text="Strategie"
                     android:textAlignment="center"
-                    android:textSize="22sp" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <TextView
                     android:id="@+id/Slot2"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="#AE5757"
-                    android:text="TACTICAL"
+                    android:text="Tactique"
                     android:textAlignment="center"
-                    android:textColorLink="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColorLink="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/Slot3"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="RPG"
+                    android:text="Rpg"
                     android:textAlignment="center"
-                    android:textSize="22sp" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +103,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/StopSlot1Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
+
+                <ImageButton
+                    android:id="@+id/StopSlot2Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
+
+                <ImageButton
+                    android:id="@+id/StopSlot3Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:orientation="vertical"></LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

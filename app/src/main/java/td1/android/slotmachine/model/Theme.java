@@ -13,6 +13,7 @@ public class Theme implements Serializable {
     public Theme(String name){
         this.name=name;
 
+
         switch(name.toUpperCase()) {
             case "RPG":
                 this.color= Color.rgb(0,0,255);
