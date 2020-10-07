@@ -13,7 +13,13 @@ public class Theme implements Serializable {
     public Theme(String name){
         this.name=name;
 
+        name = name.toLowerCase();
 
+        //Ici on choisi la couleur en fonction des trois premières lettres
+        //normalement *255/122 mais pour avoir des couleurs plus vive on change ça
+        this.color= Color.rgb(name.charAt(0)*200/122,name.charAt(1)*255/122,name.charAt(2)*255/122);
+
+        /*
         switch(name.toUpperCase()) {
             case "RPG":
                 this.color= Color.rgb(0,0,255);
@@ -30,6 +36,7 @@ public class Theme implements Serializable {
             default:
                 this.color=Color.rgb(255,255,255);
         }
+         */
 
 
     }

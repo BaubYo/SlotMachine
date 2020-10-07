@@ -10,9 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:padding="5dp"
-        android:background="@color/bleu"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:text="Theme" />
-
-    <!-- https://stackoverflow.com/questions/16161448/how-to-make-layout-with-rounded-corners -->
 </LinearLayout>
