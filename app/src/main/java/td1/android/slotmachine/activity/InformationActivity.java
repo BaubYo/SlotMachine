@@ -22,6 +22,7 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
+        //Si aucun jeu n'est renvoyer, on donne les valeurs suivante
         List<Theme> themes = new ArrayList<>();
         themes.add(new Theme("RPG"));
         themes.add(new Theme("Action"));
@@ -31,9 +32,9 @@ public class InformationActivity extends AppCompatActivity {
         Intent extraIntent = getIntent();
         jeu = (Jeu) extraIntent.getSerializableExtra("EXTRA_GAME");
 
+        //Lie les données au layout
         ((TextView) findViewById(R.id.information_title)).setText(jeu.getNom());
-        ((TextView) findViewById(R.id.information_information)).setText(getString(R.string.app_information_information, jeu.getAnnee(), jeu.getResume())); //TODO mettre dans value string
-        //((TextView) findViewById(R.id.information_information)).setText("Année de sortie: " + jeu.getAnnee() + "\n" + jeu.getResume()); //TODO mettre dans value string
+        ((TextView) findViewById(R.id.information_information)).setText(getString(R.string.app_information_information, jeu.getAnnee(), jeu.getResume()));
 
         //Pour Renvoyer sur la page wikipedia
         findViewById(R.id.information_wiki).setOnClickListener((v) -> {

@@ -38,7 +38,6 @@ public class ChoiceActivity extends AppCompatActivity {
         findViewById(R.id.choice_game).setOnClickListener((v)-> {
             Intent intent = new Intent(getApplicationContext(), InformationActivity.class);
             intent.putExtra("EXTRA_GAME", jeu);
-            //intent.putExtra("test", jeu.getNom());
             startActivity(intent);
         });
     }
