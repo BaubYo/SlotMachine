@@ -19,7 +19,6 @@ public class Jeu {
         this.annee = annee;
         this.resume = resume;
     }
-    public Jeu() {}
 
     //Getter et Setter
     public List<Theme> getThemes() {
