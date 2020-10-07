@@ -33,7 +33,11 @@ public class MainActivity extends AppCompatActivity {
         ThemeTest.add(new Theme("MYSTERE"));
         ThemeTest.add(new Theme("MOBA"));
 
-
+        //Pour Alexis !!! à enlever dans le futur
+        findViewById(R.id.changer_page).setOnClickListener((v)-> {
+            Intent intent = new Intent(getApplicationContext(), ChoiceActivity.class);
+            startActivity(intent);
+        });
 
         //Onclick sur le button levier envoie les themes ( A FAIRE ) et affiche la vue ChoiceActivity
         findViewById(R.id.MainSlotButton).setOnClickListener((v)-> {
@@ -50,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             //TEXT VIEW DROITE (METTRE SON NOM + CHANGEMENT COULEUR)
             ((TextView) findViewById(R.id.Slot3)).setText(ThemeTest.get(randSlot3).getName());
             (findViewById(R.id.Slot3)).setBackgroundColor(ThemeTest.get(randSlot3).getColor());
-
 
 
 

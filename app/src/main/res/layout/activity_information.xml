@@ -84,7 +84,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Info supplémentaire" />
+                            android:text="@string/app_information_information" />
                     </LinearLayout>
                 </LinearLayout>
 

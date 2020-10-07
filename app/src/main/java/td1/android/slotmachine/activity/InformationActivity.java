@@ -1,13 +1,12 @@
 package td1.android.slotmachine.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.io.Serializable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +29,11 @@ public class InformationActivity extends AppCompatActivity {
 
         //Récupération des données
         Intent extraIntent = getIntent();
-        jeu =  (Jeu) extraIntent.getSerializableExtra("EXTRA_GAME");
+        jeu = (Jeu) extraIntent.getSerializableExtra("EXTRA_GAME");
 
         ((TextView) findViewById(R.id.information_title)).setText(jeu.getNom());
-        ((TextView) findViewById(R.id.information_information)).setText("Année de sortie: " + jeu.getAnnee() + "\n" + jeu.getResume()); //TODO mettre dans value string
+        ((TextView) findViewById(R.id.information_information)).setText(getString(R.string.app_information_information, jeu.getAnnee(), jeu.getResume())); //TODO mettre dans value string
+        //((TextView) findViewById(R.id.information_information)).setText("Année de sortie: " + jeu.getAnnee() + "\n" + jeu.getResume()); //TODO mettre dans value string
 
         //Pour Renvoyer sur la page wikipedia
         findViewById(R.id.information_wiki).setOnClickListener((v) -> {
