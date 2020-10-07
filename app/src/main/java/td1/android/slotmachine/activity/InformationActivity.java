@@ -44,5 +44,11 @@ public class InformationActivity extends AppCompatActivity {
             i.setData(Uri.parse(url));
             startActivity(i);
         });
+
+        //Pour renvoyer sur la page d'accueil
+        findViewById(R.id.information_replay).setOnClickListener((v)-> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        });
     }
 }
