@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import td1.android.slotmachine.R;
+import td1.android.slotmachine.adapter.JeuAdapter;
 import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;
 
@@ -32,9 +35,14 @@ public class InformationActivity extends AppCompatActivity {
         Intent extraIntent = getIntent();
         jeu = (Jeu) extraIntent.getSerializableExtra("EXTRA_GAME");
 
-        //Lie les données au layout
+        //Lier les données au layout
         ((TextView) findViewById(R.id.information_title)).setText(jeu.getNom());
         ((TextView) findViewById(R.id.information_information)).setText(getString(R.string.app_information_information, jeu.getAnnee(), jeu.getResume()));
+
+        //Lier
+        RecyclerView list = (RecyclerView) findViewById(R.id.information_themes);
+        list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        list.setAdapter(new JeuAdapter(themes) {});
 
         //Pour Renvoyer sur la page wikipedia
         findViewById(R.id.information_wiki).setOnClickListener((v) -> {
