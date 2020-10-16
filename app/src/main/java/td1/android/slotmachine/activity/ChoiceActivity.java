@@ -56,7 +56,7 @@ public class ChoiceActivity extends AppCompatActivity {
         });
     }
 
-    public Jeu TirageParThemes(List<Theme> listTheme){
+        public Jeu TirageParThemes(List<Theme> listTheme){
         Jeu jeuF = null;
         List<Jeu> tirageList=new ArrayList<>();
         List<Theme> th = new ArrayList<>();
@@ -74,21 +74,21 @@ public class ChoiceActivity extends AppCompatActivity {
 
             if (i==3){
                 for(Jeu j : jeux){
-                    if(Correspondance(j.getThemes(),listTheme.get(0)) && Correspondance(j.getThemes(),listTheme.get(1)) && Correspondance(j.getThemes(),listTheme.get(2))){
+                    if(Correspondance(j.getThemes(),listTheme,i)){
                         tirageList.add(j);
                     }
                 }
             }
             else if (i==2 && tirageList.isEmpty()){
                 for(Jeu j : jeux){
-                    if((Correspondance(j.getThemes(),listTheme.get(0)) && Correspondance(j.getThemes(),listTheme.get(1))) || (Correspondance(j.getThemes(),listTheme.get(0)) && Correspondance(j.getThemes(),listTheme.get(2))) || (Correspondance(j.getThemes(),listTheme.get(2)) && Correspondance(j.getThemes(),listTheme.get(1)))){
+                    if(Correspondance(j.getThemes(),listTheme,i)){
                         tirageList.add(j);
                     }
                 }
             }
-            else if (i==1 && tirageList.isEmpty()){
+            else if (tirageList.isEmpty()){
                 for(Jeu j : jeux){
-                    if(Correspondance(j.getThemes(),listTheme.get(0)) || Correspondance(j.getThemes(),listTheme.get(1)) || Correspondance(j.getThemes(),listTheme.get(2))){
+                    if(Correspondance(j.getThemes(),listTheme,i)){
                         tirageList.add(j);
                     }
                 }
@@ -102,13 +102,20 @@ public class ChoiceActivity extends AppCompatActivity {
         return jeuF;
     }
 
-    public Boolean Correspondance(List<Theme> themeDuJeu,Theme themeAuto){
+    public Boolean Correspondance(List<Theme> themeDuJeu,List<Theme> themesAuto,int nbThemeNeed){
+        int compteurThemeCorr=0;
         for (int i=0;i<themeDuJeu.size();i++){
-            if(themeDuJeu.get(i).getName().equals(themeAuto.getName())){
-                return true;
-            }
+            for(int j=0;j<themesAuto.size();j++)
+                if(themeDuJeu.get(i).getName().equals(themesAuto.get(j).getName())){
+                    compteurThemeCorr+=1;
+                    break;
+                }
         }
+        if (compteurThemeCorr==nbThemeNeed)
+            return true;
         return false;
 
     }
+
+
 }
