@@ -72,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ThemeTest.add(new Theme("Rpg"));
+        ThemeTest.add(new Theme("RPG"));
         ThemeTest.add(new Theme("Tactique"));
-        ThemeTest.add(new Theme("Rts"));
+        ThemeTest.add(new Theme("RTS"));
         ThemeTest.add(new Theme("Strategie"));
         ThemeTest.add(new Theme("Mystere"));
-        ThemeTest.add(new Theme("Moba"));
+        ThemeTest.add(new Theme("Action"));
 
         //Onclick sur le button levier envoie les themes ( A FAIRE ) et affiche la vue ChoiceActivity
         findViewById(R.id.MainSlotButton).setOnClickListener((v)-> {
