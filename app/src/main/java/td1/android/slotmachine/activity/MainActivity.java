@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             Slot3Continue=false;
         });
 
+
     }
 
     protected void roulette(List<Theme> ThemeTest){
@@ -138,6 +141,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settings, menu);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_game_add:
+                Toast toast = Toast.makeText(this, "YO", Toast.LENGTH_LONG);
+                toast.show();
+                return true;
+            case R.id.menu_theme_add:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
