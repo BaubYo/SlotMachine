@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.Menu;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,15 +39,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     //BOOLEAN POUR LA LOOP
     Boolean Slot1Continue=false;
     Boolean Slot2Continue=false;
     Boolean Slot3Continue=false;
 
-    CountDownTimer countDownTimer= new CountDownTimer(5400, 900)
+    CountDownTimer countDownTimer= new CountDownTimer(3600, 900)
     {
-
         public void onTick(long millisUntilFinished) {
             ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " seconds restantes");
         }
@@ -112,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void roulette(List<Theme> ThemeTest){
-
-
         Random rand = new Random();
         if (Slot1Continue) {
             int randSlot1 = rand.nextInt(ThemeTest.size());
@@ -133,15 +131,16 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.Slot3)).setText(ThemeTest.get(randSlot3).getName());
             (findViewById(R.id.Slot3)).setBackgroundColor(ThemeTest.get(randSlot3).getColor());
         }
-
     }
 
     protected void timerEndRoulette(){
-
         countDownTimer.start();
-
-
-
     }
 
+    //Pour afficher menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
 }

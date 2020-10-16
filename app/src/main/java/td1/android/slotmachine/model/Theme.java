@@ -37,8 +37,6 @@ public class Theme implements Serializable {
                 this.color=Color.rgb(255,255,255);
         }
          */
-
-
     }
 
 
