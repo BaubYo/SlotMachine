@@ -14,17 +14,24 @@ import java.util.Random;
 import td1.android.slotmachine.R;
 import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;
+import td1.android.slotmachine.storage.JsonStorage;
 
 public class ChoiceActivity extends AppCompatActivity {
 
     private Jeu jeu;
     private Jeu jeu2;
     private List<Theme> listTheme;
+    private JsonStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice);
+
+        //On récupère les données depuis le JSON
+        storage = new JsonStorage(getBaseContext());
+        List<Theme> the = storage.getThemes();
+        List<Jeu> je = storage.getJeux();
 
         listTheme = new ArrayList<>();
 
@@ -41,10 +48,14 @@ public class ChoiceActivity extends AppCompatActivity {
         jeu2 = new Jeu(themes, "CyberChocolat", 2020,  "74>73 !");*/
 
         jeu=TirageParThemes(listTheme);
+        themes.add(new Theme("Action"));
+        //jeu = new Jeu(the, "Cyberpunk" + je.size(), 2020,  "Dans ce jeu, tu peux jouer !");
+        jeu = je.get(1);
 
         //Pour renlancer le jeu
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
-            jeu = TirageParThemes(listTheme);
+            //TODO masse code ici !
+            jeu = new Jeu(themes, "Witcher 3", 2015,  "T'arrive tranquille sur ton cheval et tu pars rechercher une meuf");
         });
 
         //Pour renvoyer sur la page d'information

@@ -7,9 +7,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-
             roulette(ThemeTest);
 
             // 30 ms boucle

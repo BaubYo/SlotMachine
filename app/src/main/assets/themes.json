@@ -1,0 +1,19 @@
+{
+  "themes": [
+    {
+      "name": "RTS"
+    },
+    {
+      "name": "Action"
+    },
+    {
+      "name": "FPS"
+    },
+    {
+      "name": "Platforme"
+    },
+    {
+      "name": "RPG"
+    }
+  ]
+}

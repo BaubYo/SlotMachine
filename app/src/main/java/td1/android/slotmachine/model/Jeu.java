@@ -13,9 +13,14 @@ public class Jeu implements Serializable {
     private int annee;
     private String resume;
 
-    //Constructeur
+    //Constructeurs
     public Jeu(List<Theme> themes, String nom, int annee, String resume) {
         this.themes = themes;
+        this.nom = nom;
+        this.annee = annee;
+        this.resume = resume;
+    }
+    public Jeu(String nom, int annee, String resume) {
         this.nom = nom;
         this.annee = annee;
         this.resume = resume;
