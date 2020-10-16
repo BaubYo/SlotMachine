@@ -44,8 +44,7 @@ public class ChoiceActivity extends AppCompatActivity {
 
         //Pour renlancer le jeu
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
-            //TODO masse code ici !
-            jeu = new Jeu(themes, "Witcher 3", 2015,  "T'arrive tranquille sur ton cheval et tu pars rechercher une meuf");
+            jeu = TirageParThemes(listTheme);
         });
 
         //Pour renvoyer sur la page d'information
