@@ -256,6 +256,7 @@ public class JsonStorage {
         return themeList;
     }
 
+    //Créer des données ainsi que les fichiers JSON
     private void createData(){
         //Données de base :
         themes = new ArrayList<Theme>();
