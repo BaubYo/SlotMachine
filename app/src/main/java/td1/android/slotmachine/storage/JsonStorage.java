@@ -52,25 +52,28 @@ public class JsonStorage {
         jeux = new ArrayList<Jeu>();
         themes = new ArrayList<Theme>();
 
-        /*
-        themes.add(new Theme("RPG"));
-        themes.add(new Theme("Action"));
+        //Verification que l'on possède bien les fichiers
+        File fileThemes = new File(context.getFilesDir(),"themes.json");
+        File fileJeux = new File(context.getFilesDir(),"jeux.json");
+        FileReader fileReaderThemes = null;
+        FileReader fileReaderJeux = null;
+        boolean fileFind = false;
 
-        jeux.add(new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !"));
-         */
+        while (!fileFind)
+        {
+            try {
+                fileReaderThemes = new FileReader(fileThemes);
+                fileReaderJeux = new FileReader(fileJeux);
+                fileFind = true;
+            } catch (FileNotFoundException e) {
+                createData();
+                //e.printStackTrace();
+            }
+        }
 
-        //saveThemes();
-        //saveJeux();
 
         //On ouvre le fichier et copie son contenu sous forme de string
-        File file = new File(context.getFilesDir(),"themes.json");
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader = new BufferedReader(fileReaderThemes);
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
         try {
@@ -95,13 +98,7 @@ public class JsonStorage {
 
 
         //On ouvre le fichier et copie son contenu sous forme de string
-        file = new File(context.getFilesDir(),"jeux.json");
-        try {
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedReader buffer= new BufferedReader(fileReader);
+        BufferedReader buffer= new BufferedReader(fileReaderJeux);
         stringBuilder = new StringBuilder();
         try {
             line = buffer.readLine();
@@ -125,7 +122,6 @@ public class JsonStorage {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         // https://medium.com/@nayantala259/android-how-to-read-and-write-parse-data-from-json-file-226f821e957a
     }
 
@@ -258,5 +254,82 @@ public class JsonStorage {
             e.printStackTrace();
         }
         return themeList;
+    }
+
+    private void createData(){
+        //Données de base :
+        themes = new ArrayList<Theme>();
+        jeux = new ArrayList<Jeu>();
+
+        themes.add(new Theme("RPG"));
+        themes.add(new Theme("FPS"));
+        themes.add(new Theme("Tactical"));
+        themes.add(new Theme("Action"));
+        themes.add(new Theme("Open world"));
+        themes.add(new Theme("Tour par tour"));
+
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("RPG"));
+            add(new Theme("Action"));
+            add(new Theme("Open world"));
+        }}, "The Witcher 3", 2015,
+                ""
+        ));
+
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("Tactical"));
+            add(new Theme("RPG"));
+            add(new Theme("Tour par tour"));
+        }}, "XCOM 2", 0,
+                ""
+        ));
+
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("RPG"));
+            add(new Theme("Tour par tour"));
+            add(new Theme("Tactical"));
+        }}, "Fire Emblem: Three House", 0,
+                ""
+        ));
+
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("RPG"));
+            add(new Theme("Action"));
+            add(new Theme("FPS"));
+            add(new Theme("Open world"));
+        }}, "Cyberpunk 2077", 2020,
+                ""
+        ));
+
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("RPG"));
+            add(new Theme("FPS"));
+            add(new Theme("Tour par tour"));
+            add(new Theme("Action"));
+            add(new Theme("Open world"));
+        }}, "Fallout 4", 0,
+                ""
+        ));
+
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("RPG"));
+            add(new Theme("Tour par tour"));
+            add(new Theme("Tactical"));
+        }}, "Disgaea 5", 2020,
+                ""
+        ));
+
+        //C'est bof comme exemple mais ça passera on va dire
+        jeux.add(new Jeu(new ArrayList<Theme>() {{
+            add(new Theme("FPS"));
+            add(new Theme("Action"));
+            add(new Theme("Tactical"));
+            add(new Theme("Open world"));
+        }}, "Squad", 2020,
+                ""
+        ));
+
+        saveJeux();
+        saveThemes();
     }
 }

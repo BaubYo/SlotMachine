@@ -19,21 +19,16 @@ public class ChoiceActivity extends AppCompatActivity {
     private Jeu jeu;
     private Jeu jeu2;
     private List<Theme> listTheme;
-    private JsonStorage storage;
+    //private JsonStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice);
 
-        //On récupère les données depuis le JSON
-        storage = new JsonStorage(getBaseContext());
-        List<Theme> the = storage.getThemes();
-        List<Jeu> je = storage.getJeux();
 
+        //Récupération des thèmes selectionné
         listTheme = new ArrayList<>();
-
-        //Récupération des données
         Intent extraIntent = getIntent();
         listTheme = (ArrayList<Theme>)extraIntent.getSerializableExtra("ThemesSelect");
 
@@ -44,12 +39,12 @@ public class ChoiceActivity extends AppCompatActivity {
         themes.add(new Theme("Action"));
         /*
         jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
-        jeu2 = new Jeu(themes, "CyberChocolat", 2020,  "74>73 !");*/
+        jeu2 = new Jeu(themes, "CyberChocolat", 2020,  "74>73 !");
+        */
 
         jeu=TirageParThemes(listTheme);
         themes.add(new Theme("Action"));
-        //jeu = new Jeu(the, "Cyberpunk" + je.size(), 2020,  "Dans ce jeu, tu peux jouer !");
-        jeu = je.get(0);
+        //jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
 
         //Pour renlancer le jeu
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
@@ -68,6 +63,7 @@ public class ChoiceActivity extends AppCompatActivity {
         public Jeu TirageParThemes(List<Theme> listTheme){
         Jeu jeuF = null;
         List<Jeu> tirageList=new ArrayList<>();
+        /*
         List<Theme> th = new ArrayList<>();
         th.add(new Theme("RPG"));
         th.add(new Theme("Action"));
@@ -78,6 +74,9 @@ public class ChoiceActivity extends AppCompatActivity {
         List<Jeu> jeux=new ArrayList<>();
         jeux.add(jeu);
         jeux.add(jeu2);
+         */
+        JsonStorage stroage = new JsonStorage(getBaseContext());
+        List<Jeu> jeux = stroage.getJeux();
 
         for(int i=3;i>0;i--){
 

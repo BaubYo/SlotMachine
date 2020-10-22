@@ -17,70 +17,41 @@ import java.util.List;
 import java.util.Random;
 
 import td1.android.slotmachine.R;
+import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;
+import td1.android.slotmachine.storage.JsonStorage;
 
 public class MainActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
 
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            roulette(ThemeTest);
-
-            // 30 ms boucle
-            handler.postDelayed(runnable, 20);
-            if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
-                handler.removeCallbacks(runnable);
-                timerEndRoulette();
-            }
-
-        }
-    };
-
     //BOOLEAN POUR LA LOOP
-    Boolean Slot1Continue=false;
-    Boolean Slot2Continue=false;
-    Boolean Slot3Continue=false;
-
-    CountDownTimer countDownTimer= new CountDownTimer(3600, 900)
-    {
-        public void onTick(long millisUntilFinished) {
-            ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " seconds restantes");
-        }
-
-        public void onFinish() {
-            ((TextView)findViewById(R.id.countDown)).setText("termine!");
-            Intent intent = new Intent(getApplicationContext(),ChoiceActivity.class);
-            List<Theme> themeToNextAct = new ArrayList<>();
-            themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot1)).getText().toString()));
-            themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot2)).getText().toString()));
-            themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot3)).getText().toString()));
-
-            intent.putExtra("ThemesSelect", (Serializable)themeToNextAct);
-            startActivity(intent);
-        }
-    };
-
-
+    protected Boolean Slot1Continue=false;
+    protected Boolean Slot2Continue=false;
+    protected Boolean Slot3Continue=false;
     protected List<Theme> ThemeTest = new ArrayList<>();
+    protected JsonStorage storage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //On récupère les données depuis le JSON
+        storage = new JsonStorage(getBaseContext()); //ça crash ici !!!
+        ThemeTest = storage.getThemes();
 
-
+        /*
         ThemeTest.add(new Theme("RPG"));
         ThemeTest.add(new Theme("Tactique"));
         ThemeTest.add(new Theme("RTS"));
         ThemeTest.add(new Theme("Strategie"));
         ThemeTest.add(new Theme("Mystere"));
         ThemeTest.add(new Theme("Action"));
+         */
 
         //Onclick sur le button levier envoie les themes ( A FAIRE ) et affiche la vue ChoiceActivity
         findViewById(R.id.MainSlotButton).setOnClickListener((v)-> {
-
             if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
                 handler.removeCallbacks(runnable);
                 countDownTimer.cancel();
@@ -107,9 +78,40 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.StopSlot3Button).setOnClickListener((v)-> {
             Slot3Continue=false;
         });
-
-
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            roulette(ThemeTest);
+
+            // 30 ms boucle
+            handler.postDelayed(runnable, 20);
+            if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
+                handler.removeCallbacks(runnable);
+                timerEndRoulette();
+            }
+        }
+    };
+
+    CountDownTimer countDownTimer= new CountDownTimer(3600, 900)
+    {
+        public void onTick(long millisUntilFinished) {
+            ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " seconds restantes");
+        }
+
+        public void onFinish() {
+            ((TextView)findViewById(R.id.countDown)).setText("termine!");
+            Intent intent = new Intent(getApplicationContext(),ChoiceActivity.class);
+            List<Theme> themeToNextAct = new ArrayList<>();
+            themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot1)).getText().toString()));
+            themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot2)).getText().toString()));
+            themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot3)).getText().toString()));
+
+            intent.putExtra("ThemesSelect", (Serializable)themeToNextAct);
+            startActivity(intent);
+        }
+    };
 
     protected void roulette(List<Theme> ThemeTest){
         Random rand = new Random();
@@ -141,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settings, menu);
-
         return true;
     }
 
@@ -154,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
                 return true;
             case R.id.menu_theme_add:
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
