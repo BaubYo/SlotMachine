@@ -1,12 +1,10 @@
 package td1.android.slotmachine.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import java.io.Serializable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,14 +41,15 @@ public class ChoiceActivity extends AppCompatActivity {
         //FAUDRA GET DATA FROM JSON
         List<Theme> themes = new ArrayList<>();
         themes.add(new Theme("RPG"));
-        themes.add(new Theme("Action"));/*
+        themes.add(new Theme("Action"));
+        /*
         jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
         jeu2 = new Jeu(themes, "CyberChocolat", 2020,  "74>73 !");*/
 
         jeu=TirageParThemes(listTheme);
         themes.add(new Theme("Action"));
         //jeu = new Jeu(the, "Cyberpunk" + je.size(), 2020,  "Dans ce jeu, tu peux jouer !");
-        jeu = je.get(1);
+        jeu = je.get(0);
 
         //Pour renlancer le jeu
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
