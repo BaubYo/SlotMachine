@@ -1,15 +1,23 @@
 package td1.android.slotmachine.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +26,8 @@ import java.util.Random;
 
 import td1.android.slotmachine.R;
 import td1.android.slotmachine.model.Jeu;
+import td1.android.slotmachine.adapter.JeuAdapter;
+import td1.android.slotmachine.adapter.ThemeAdapter;
 import td1.android.slotmachine.model.Theme;
 import td1.android.slotmachine.storage.JsonStorage;
 
@@ -148,14 +158,133 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
+        //view = requireActivity().getLayoutInflater().inflate(R.layout.prompts_add_jeu,null);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+
+
         switch (item.getItemId()) {
             case R.id.menu_game_add:
-                Toast toast = Toast.makeText(this, "YO", Toast.LENGTH_LONG);
-                toast.show();
+                List<Theme> themeSelect=new ArrayList<Theme>();
+                View layout = inflater.inflate(R.layout.prompts_add_jeu,null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                final EditText jeuName = (EditText) layout.findViewById(R.id.promptsJeuName);
+                final EditText jeuAn = (EditText) layout.findViewById(R.id.promptsJeuAn);
+                final EditText jeuResume = (EditText) layout.findViewById(R.id.promptsJeuResume);
+
+                RecyclerView list = (RecyclerView) layout.findViewById(R.id.listThemes);
+                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
+                list.setAdapter(new ThemeAdapter(ThemeTest) {
+                    @Override
+                    public void onItemClick(View v) {
+                        if(((ColorDrawable)list.getChildViewHolder(v).itemView.getBackground()).getColor()==Color.WHITE) {
+                            themeSelect.add(ThemeTest.get(list.getChildViewHolder(v).getAdapterPosition()));
+                            list.getChildViewHolder(v).itemView.setBackgroundColor(Color.GREEN);
+                        }
+                        else{
+                            themeSelect.remove(ThemeTest.get(list.getChildViewHolder(v).getAdapterPosition()));
+                            list.getChildViewHolder(v).itemView.setBackgroundColor(Color.WHITE);
+                        }
+                    }
+
+                    @Override
+                    public void onItemLongClick(View v) {
+                        //rien
+                    }
+                });
+
+
+                builder.setView(layout)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String sJeuName = jeuName.getText().toString();
+                                String sJeuAn = jeuAn.getText().toString();
+                                String sJeuResume = jeuResume.getText().toString();
+                                //PAS OUBLIER DE PRENDRE THEMESELECT
+                                //STOCKAGE JSON JEU
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+
                 return true;
             case R.id.menu_theme_add:
+                View layoutThemeAdd = inflater.inflate(R.layout.prompts_add_theme,null);
+                AlertDialog.Builder builderThemeAdd = new AlertDialog.Builder(this);
+                final EditText themeName = (EditText) layoutThemeAdd.findViewById(R.id.promptsThemeName);
+                builderThemeAdd.setView(layoutThemeAdd)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String temp = themeName.getText().toString();
+                                //STOCKAGE JSON THEME
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+
                 return true;
+            case R.id.menu_theme_delete:
+                List<Theme> themeADel=new ArrayList<Theme>();
+                View layoutThemeDel = inflater.inflate(R.layout.prompts_delete_theme,null);
+                AlertDialog.Builder builderThemeDel = new AlertDialog.Builder(this);
+
+                RecyclerView listThemeDel = (RecyclerView) layoutThemeDel.findViewById(R.id.listThemesDel);
+
+                listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
+                listThemeDel.setAdapter(new ThemeAdapter(ThemeTest) {
+                    @Override
+                    public void onItemClick(View v) {
+                        //rien
+                    }
+
+                    @Override
+                    public void onItemLongClick(View v) {
+                        themeADel.add(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
+                        listThemeDel.removeViewAt(listThemeDel.getChildViewHolder(v).getAdapterPosition());
+
+                    }
+                });
+
+
+                builderThemeDel.setView(layoutThemeDel)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                //PAS OUBLIER DE PRENDRE THEME A DEL POUR ACTUALISER LIST THEMES
+                                //STOCKAGE JSON JEU
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+
+                return true;
+            /*case R.id.menu_theme_modify:
+            case R.id.menu_game_delete:
+            case R.id.menu_game_modify:*/
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
