@@ -273,24 +273,24 @@ public class JsonStorage {
             add(new Theme("RPG"));
             add(new Theme("Action"));
             add(new Theme("Open world"));
-        }}, "The Witcher 3", 2015,
-                ""
+        }}, "The Witcher 3: Wild Hunt", 2015,
+                "À la suite des événements de The Witcher 2: Assassins of Kings, la guerre fait rage entre l'empire du Nilfgaard et ce qu'il reste des Royaumes du Nord."
         ));
 
         jeux.add(new Jeu(new ArrayList<Theme>() {{
             add(new Theme("Tactical"));
             add(new Theme("RPG"));
             add(new Theme("Tour par tour"));
-        }}, "XCOM 2", 0,
-                ""
+        }}, "XCOM 2", 2016,
+                "L'histoire de XCOM 2 prend place à la suite de celle de XCOM: Enemy Unknown dans le cas où la partie est perdue. Les extra-terrestres ont pris le contrôle de la terre."
         ));
 
         jeux.add(new Jeu(new ArrayList<Theme>() {{
             add(new Theme("RPG"));
             add(new Theme("Tour par tour"));
             add(new Theme("Tactical"));
-        }}, "Fire Emblem: Three House", 0,
-                ""
+        }}, "Fire Emblem: Three Houses", 2019,
+                "Le jeu se divise en deux parties. Dans la première partie, qui dure douze chapitres, le joueur joue son rôle de professeur à l'Académie des officiers."
         ));
 
         jeux.add(new Jeu(new ArrayList<Theme>() {{
@@ -299,7 +299,7 @@ public class JsonStorage {
             add(new Theme("FPS"));
             add(new Theme("Open world"));
         }}, "Cyberpunk 2077", 2020,
-                ""
+                "L'histoire de Cyberpunk 2077 prend place sur Terre en 2077 et se déroule dans la mégapole futuriste de Night City, dans l’État libre de Californie. "
         ));
 
         jeux.add(new Jeu(new ArrayList<Theme>() {{
@@ -308,16 +308,16 @@ public class JsonStorage {
             add(new Theme("Tour par tour"));
             add(new Theme("Action"));
             add(new Theme("Open world"));
-        }}, "Fallout 4", 0,
-                ""
+        }}, "Fallout 4", 2015,
+                "Un matin, à Boston, quelques jours avant Halloween, le protagoniste passe une journée comme une autre chez lui : il découvre le quartier de Sanctuary, et Codsworth, son robot personnel."
         ));
 
         jeux.add(new Jeu(new ArrayList<Theme>() {{
             add(new Theme("RPG"));
             add(new Theme("Tour par tour"));
             add(new Theme("Tactical"));
-        }}, "Disgaea 5", 2020,
-                ""
+        }}, "Darkest Dungeon", 2016,
+                "Le jeu est divisé en deux phases : une phase orientée sur la gestion d'un hameau et d'une équipe d'aventuriers et une phase orientée sur l'action et l'exploration par cette équipe."
         ));
 
         //C'est bof comme exemple mais ça passera on va dire
@@ -325,9 +325,8 @@ public class JsonStorage {
             add(new Theme("FPS"));
             add(new Theme("Action"));
             add(new Theme("Tactical"));
-            add(new Theme("Open world"));
-        }}, "Squad", 2020,
-                ""
+        }}, "Insurgency: Sandstorm", 2018,
+                "En début de partie, les joueurs doivent choisir une classe et peuvent ensuite sélectionner leurs armes et accessoires en utilisant des points d'équipement qui sont en nombre limité."
         ));
 
         saveJeux();
