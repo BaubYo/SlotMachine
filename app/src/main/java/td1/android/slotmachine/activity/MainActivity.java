@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Random;
 
 import td1.android.slotmachine.R;
-import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.adapter.JeuAdapter;
 import td1.android.slotmachine.adapter.ThemeAdapter;
+import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;
 import td1.android.slotmachine.storage.JsonStorage;
 
@@ -175,12 +175,11 @@ public class MainActivity extends AppCompatActivity {
                 final EditText jeuResume = (EditText) layout.findViewById(R.id.promptsJeuResume);
 
                 RecyclerView list = (RecyclerView) layout.findViewById(R.id.listThemes);
+                list.setLayoutManager(new LinearLayoutManager(this));
+
                 //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
-                /*for(int i=0;i<ThemeTest.size();i++){
-                    ThemeTest.get(i).setColor(Color.WHITE);
-                }*/
 
                 list.setAdapter(new ThemeAdapter(ThemeTest) {
                     @Override
@@ -208,10 +207,10 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String sJeuName = jeuName.getText().toString();
-                                String sJeuAn = jeuAn.getText().toString();
+                                int sJeuAn = Integer.parseInt(jeuAn.getText().toString());
                                 String sJeuResume = jeuResume.getText().toString();
-                                //PAS OUBLIER DE PRENDRE THEMESELECT
-                                //STOCKAGE JSON JEU
+                                storage.getJeux().add(new Jeu(themeSelect,sJeuName,sJeuAn,sJeuResume));
+                                storage.saveJeux();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -232,7 +231,8 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String temp = themeName.getText().toString();
-                                //STOCKAGE JSON THEME
+                                storage.getThemes().add(new Theme(temp));
+                                storage.saveThemes();
 
                             }
                         })
@@ -246,13 +246,12 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_theme_delete:
-                List<Theme> themeADel=new ArrayList<Theme>();
                 View layoutThemeDel = inflater.inflate(R.layout.prompts_delete_theme,null);
                 AlertDialog.Builder builderThemeDel = new AlertDialog.Builder(this);
 
                 RecyclerView listThemeDel = (RecyclerView) layoutThemeDel.findViewById(R.id.listThemesDel);
-
-                listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                listThemeDel.setLayoutManager(new LinearLayoutManager(this));
+                //listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
                 listThemeDel.setAdapter(new ThemeAdapter(ThemeTest) {
                     @Override
@@ -262,8 +261,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onItemLongClick(View v) {
-                        themeADel.add(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
-                        listThemeDel.removeViewAt(listThemeDel.getChildViewHolder(v).getAdapterPosition());
+                        storage.getThemes().remove(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
+                        this.notifyDataSetChanged();
+
 
                     }
                 });
@@ -274,8 +274,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                //PAS OUBLIER DE PRENDRE THEME A DEL POUR ACTUALISER LIST THEMES
-                                //STOCKAGE JSON JEU
+                                storage.saveThemes();
                             }
                         })
                         .create()
@@ -283,13 +282,13 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_game_delete:
-                List<Jeu> jeuADel=new ArrayList<Jeu>();
                 View layoutJeuDel = inflater.inflate(R.layout.prompts_delete_theme,null);
                 AlertDialog.Builder builderJeuDel = new AlertDialog.Builder(this);
 
                 RecyclerView listJeuDel = (RecyclerView) layoutJeuDel.findViewById(R.id.listThemesDel);
 
-                listJeuDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                //listJeuDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                listJeuDel.setLayoutManager(new LinearLayoutManager(this));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
                 listJeuDel.setAdapter(new JeuAdapter(JeuTest) {
                     @Override
@@ -299,8 +298,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onItemLongClick(View v) {
-                        jeuADel.add(JeuTest.get(listJeuDel.getChildViewHolder(v).getAdapterPosition()));
-                        listJeuDel.removeViewAt(listJeuDel.getChildViewHolder(v).getAdapterPosition());
+                        storage.getJeux().remove(JeuTest.get(listJeuDel.getChildViewHolder(v).getAdapterPosition()));
+                        this.notifyDataSetChanged();
+
 
                     }
                 });
@@ -311,8 +311,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                //PAS OUBLIER DE PRENDRE jeuADel POUR ACTUALISER LIST THEMES
-                                //STOCKAGE JSON JEU
+                                storage.saveJeux();
                             }
                         })
                         .create()

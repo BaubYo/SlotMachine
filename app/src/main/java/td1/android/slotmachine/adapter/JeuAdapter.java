@@ -72,5 +72,4 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
     public abstract void onItemClick(View v);
     public abstract void onItemLongClick(View v);
 
-
 }
