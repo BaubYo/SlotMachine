@@ -27,12 +27,10 @@ public class ChoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice);
 
-
         //Récupération des thèmes selectionné
         listTheme = new ArrayList<>();
         Intent extraIntent = getIntent();
         listTheme = (ArrayList<Theme>)extraIntent.getSerializableExtra("ThemesSelect");
-
 
         //FAUDRA GET DATA FROM JSON
         List<Theme> themes = new ArrayList<>();
@@ -53,8 +51,7 @@ public class ChoiceActivity extends AppCompatActivity {
 
         //Pour renlancer le jeu
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
-            //TODO masse code ici !
-            jeu = new Jeu(themes, "Witcher 3", 2015,  "T'arrive tranquille sur ton cheval et tu pars rechercher une meuf");
+            jeu=TirageParThemes(listTheme);
         });
 
         //Pour renvoyer sur la page d'information
@@ -84,7 +81,6 @@ public class ChoiceActivity extends AppCompatActivity {
             List<Jeu> jeux = stroage.getJeux();
 
             for(int i=3;i>0;i--){
-
                 if (i==3){
                     for(Jeu j : jeux){
                         if(Correspondance(j.getThemes(),listTheme,i)){
