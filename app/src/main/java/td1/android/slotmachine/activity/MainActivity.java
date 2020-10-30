@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected Boolean Slot2Continue=false;
     protected Boolean Slot3Continue=false;
     protected List<Theme> ThemeTest = new ArrayList<>();
+    protected List<Jeu> JeuTest = new ArrayList<>();
     protected JsonStorage storage;
 
     @Override
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         //On récupère les données depuis le JSON
         storage = new JsonStorage(getBaseContext()); //ça crash ici !!!
         ThemeTest = storage.getThemes();
+        JeuTest=storage.getJeux();
 
         /*
         ThemeTest.add(new Theme("RPG"));
@@ -176,6 +178,10 @@ public class MainActivity extends AppCompatActivity {
                 //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
+                /*for(int i=0;i<ThemeTest.size();i++){
+                    ThemeTest.get(i).setColor(Color.WHITE);
+                }*/
+
                 list.setAdapter(new ThemeAdapter(ThemeTest) {
                     @Override
                     public void onItemClick(View v) {
@@ -194,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                         //rien
                     }
                 });
+
 
 
                 builder.setView(layout)
@@ -271,17 +278,51 @@ public class MainActivity extends AppCompatActivity {
                                 //STOCKAGE JSON JEU
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .create()
+                        .show();
+
+                return true;
+            case R.id.menu_game_delete:
+                List<Jeu> jeuADel=new ArrayList<Jeu>();
+                View layoutJeuDel = inflater.inflate(R.layout.prompts_delete_theme,null);
+                AlertDialog.Builder builderJeuDel = new AlertDialog.Builder(this);
+
+                RecyclerView listJeuDel = (RecyclerView) layoutJeuDel.findViewById(R.id.listThemesDel);
+
+                listJeuDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
+                listJeuDel.setAdapter(new JeuAdapter(JeuTest) {
+                    @Override
+                    public void onItemClick(View v) {
+                        //rien
+                    }
+
+                    @Override
+                    public void onItemLongClick(View v) {
+                        jeuADel.add(JeuTest.get(listJeuDel.getChildViewHolder(v).getAdapterPosition()));
+                        listJeuDel.removeViewAt(listJeuDel.getChildViewHolder(v).getAdapterPosition());
+
+                    }
+                });
+
+
+                builderJeuDel.setView(layoutJeuDel)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+
+                                //PAS OUBLIER DE PRENDRE jeuADel POUR ACTUALISER LIST THEMES
+                                //STOCKAGE JSON JEU
                             }
                         })
                         .create()
                         .show();
 
                 return true;
+
+
             /*case R.id.menu_theme_modify:
-            case R.id.menu_game_delete:
+
             case R.id.menu_game_modify:*/
 
 

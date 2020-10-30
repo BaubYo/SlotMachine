@@ -3,6 +3,7 @@ package td1.android.slotmachine.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import td1.android.slotmachine.R;
 import td1.android.slotmachine.adapter.JeuAdapter;
+import td1.android.slotmachine.adapter.ThemeAdapter;
 import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;
 
@@ -42,7 +44,17 @@ public class InformationActivity extends AppCompatActivity {
         //Envoie pour affichage des thèmes
         RecyclerView list = (RecyclerView) findViewById(R.id.information_themes);
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        list.setAdapter(new JeuAdapter(jeu.getThemes()) {});
+        list.setAdapter(new ThemeAdapter(jeu.getThemes()) {
+            @Override
+            public void onItemClick(View v) {
+                //rien
+            }
+
+            @Override
+            public void onItemLongClick(View v) {
+                //rien
+            }
+        });
 
         //Pour Renvoyer sur la page wikipedia
         findViewById(R.id.information_wiki).setOnClickListener((v) -> {

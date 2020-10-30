@@ -20,6 +20,7 @@ public abstract class ThemeAdapter  extends RecyclerView.Adapter<ThemeAdapter.Th
     //Classe holder
     public class ThemeHolder extends RecyclerView.ViewHolder {
         public TextView nom;
+        public int color;
 
         public ThemeHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +61,9 @@ public abstract class ThemeAdapter  extends RecyclerView.Adapter<ThemeAdapter.Th
     @Override
     public void onBindViewHolder(@NonNull ThemeHolder holder, int position) {
         holder.nom.setText(liste.get(position).getName());
+        holder.nom.setBackgroundColor(liste.get(position).getColor());
         holder.itemView.setBackgroundColor(Color.WHITE);
+
     }
 
     //Nombres de thèmes

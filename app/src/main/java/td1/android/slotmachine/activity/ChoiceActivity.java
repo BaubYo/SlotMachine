@@ -2,6 +2,7 @@ package td1.android.slotmachine.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,6 +44,10 @@ public class ChoiceActivity extends AppCompatActivity {
         */
 
         jeu=TirageParThemes(listTheme);
+        if (jeu==null){
+            Toast.makeText(getApplicationContext(), "Aucun jeu trouvé. Veuillez ajouter un jeu aux thèmes sans aucun jeux", Toast.LENGTH_SHORT).show();
+            jeu=new Jeu(null,"Défault",0000,"");
+        }
         themes.add(new Theme("Action"));
         //jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
 
@@ -61,53 +66,53 @@ public class ChoiceActivity extends AppCompatActivity {
     }
 
         public Jeu TirageParThemes(List<Theme> listTheme){
-        Jeu jeuF = null;
-        List<Jeu> tirageList=new ArrayList<>();
-        /*
-        List<Theme> th = new ArrayList<>();
-        th.add(new Theme("RPG"));
-        th.add(new Theme("Action"));
-        //GET LIST OF JEU FROM JSON
-        Jeu jeu = new Jeu(th, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
-        Jeu jeu2 = new Jeu(th, "CyberChocolat", 2020,  "74>73 !");
+            Jeu jeuF = null;
+            List<Jeu> tirageList=new ArrayList<>();
+            /*
+            List<Theme> th = new ArrayList<>();
+            th.add(new Theme("RPG"));
+            th.add(new Theme("Action"));
+            //GET LIST OF JEU FROM JSON
+            Jeu jeu = new Jeu(th, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
+            Jeu jeu2 = new Jeu(th, "CyberChocolat", 2020,  "74>73 !");
 
-        List<Jeu> jeux=new ArrayList<>();
-        jeux.add(jeu);
-        jeux.add(jeu2);
-         */
-        JsonStorage stroage = new JsonStorage(getBaseContext());
-        List<Jeu> jeux = stroage.getJeux();
+            List<Jeu> jeux=new ArrayList<>();
+            jeux.add(jeu);
+            jeux.add(jeu2);
+             */
+            JsonStorage stroage = new JsonStorage(getBaseContext());
+            List<Jeu> jeux = stroage.getJeux();
 
-        for(int i=3;i>0;i--){
+            for(int i=3;i>0;i--){
 
-            if (i==3){
-                for(Jeu j : jeux){
-                    if(Correspondance(j.getThemes(),listTheme,i)){
-                        tirageList.add(j);
+                if (i==3){
+                    for(Jeu j : jeux){
+                        if(Correspondance(j.getThemes(),listTheme,i)){
+                            tirageList.add(j);
+                        }
+                    }
+                }
+                else if (i==2 && tirageList.isEmpty()){
+                    for(Jeu j : jeux){
+                        if(Correspondance(j.getThemes(),listTheme,i)){
+                            tirageList.add(j);
+                        }
+                    }
+                }
+                else if (tirageList.isEmpty()){
+                    for(Jeu j : jeux){
+                        if(Correspondance(j.getThemes(),listTheme,i)){
+                            tirageList.add(j);
+                        }
                     }
                 }
             }
-            else if (i==2 && tirageList.isEmpty()){
-                for(Jeu j : jeux){
-                    if(Correspondance(j.getThemes(),listTheme,i)){
-                        tirageList.add(j);
-                    }
-                }
-            }
-            else if (tirageList.isEmpty()){
-                for(Jeu j : jeux){
-                    if(Correspondance(j.getThemes(),listTheme,i)){
-                        tirageList.add(j);
-                    }
-                }
-            }
-        }
 
-        if (!tirageList.isEmpty()){
-            Random rand=new Random();
-            jeuF=tirageList.get(rand.nextInt(tirageList.size()));
-        }
-        return jeuF;
+            if (!tirageList.isEmpty()){
+                Random rand=new Random();
+                jeuF=tirageList.get(rand.nextInt(tirageList.size()));
+            }
+            return jeuF;
     }
 
     public Boolean Correspondance(List<Theme> themeDuJeu,List<Theme> themesAuto,int nbThemeNeed){

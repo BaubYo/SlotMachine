@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import td1.android.slotmachine.R;
+import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;
 
 public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHolder>  {
@@ -20,7 +21,6 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
     //Classe holder
     public class JeuHolder extends RecyclerView.ViewHolder {
         public TextView nom;
-        public int couleur;
 
         public JeuHolder(@NonNull View itemView) {
             super(itemView);
@@ -28,9 +28,9 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
         }
     }
 
-    List<Theme> liste;
+    List<Jeu> liste;
 
-    public JeuAdapter(List<Theme> liste) {
+    public JeuAdapter(List<Jeu> liste) {
         this.liste = liste;
     }
 
@@ -41,14 +41,26 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
         View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.theme_layout_information, parent, false);
+        view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                onItemClick(v);
+            }
+        });
+        view.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v){
+                onItemLongClick(v);
+                return true;
+            }
+        });
         return new JeuHolder(view);
     }
 
     //Lien entre données et vue
     @Override
     public void onBindViewHolder(@NonNull JeuHolder holder, int position) {
-        holder.nom.setText(liste.get(position).getName());
-        holder.nom.setBackgroundColor(liste.get(position).getColor());
+        holder.nom.setText(liste.get(position).getNom());
     }
 
     //Nombres de thèmes
@@ -56,5 +68,9 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
     public int getItemCount() {
         return liste.size();
     }
+
+    public abstract void onItemClick(View v);
+    public abstract void onItemLongClick(View v);
+
 
 }
