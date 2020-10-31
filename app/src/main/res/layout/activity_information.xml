@@ -91,15 +91,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.3"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/information_wiki"
+                        android:background="#00000000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@mipmap/ic_wikipedia" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

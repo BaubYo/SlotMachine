@@ -122,7 +122,6 @@ public class JsonStorage {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // https://medium.com/@nayantala259/android-how-to-read-and-write-parse-data-from-json-file-226f821e957a
     }
 
     //Ecriture
@@ -242,7 +241,7 @@ public class JsonStorage {
         return theme;
     }
 
-    //Renvoie la liste des themes d'un JSONArray                            //Faire ou pas la meme pour les jeux ? (c'est actuellement pas une fonction)
+    //Renvoie la liste des themes d'un JSONArray
     private List<Theme> getJsonThemeList(JSONArray objectJson) {
         List<Theme> themeList = new ArrayList<>();
         try {

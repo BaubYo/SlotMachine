@@ -75,20 +75,8 @@ public class ChoiceActivity extends AppCompatActivity {
         public Jeu TirageParThemes(List<Theme> listTheme){
             Jeu jeuF = null;
             List<Jeu> tirageList=new ArrayList<>();
-            /*
-            List<Theme> th = new ArrayList<>();
-            th.add(new Theme("RPG"));
-            th.add(new Theme("Action"));
-            //GET LIST OF JEU FROM JSON
-            Jeu jeu = new Jeu(th, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
-            Jeu jeu2 = new Jeu(th, "CyberChocolat", 2020,  "74>73 !");
-
-            List<Jeu> jeux=new ArrayList<>();
-            jeux.add(jeu);
-            jeux.add(jeu2);
-             */
-            JsonStorage stroage = new JsonStorage(getBaseContext());
-            List<Jeu> jeux = stroage.getJeux();
+            JsonStorage storage = new JsonStorage(getBaseContext());
+            List<Jeu> jeux = storage.getJeux();
 
             for(int i=3;i>0;i--){
                 if (i==3){
@@ -142,10 +130,13 @@ public class ChoiceActivity extends AppCompatActivity {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("images", Context.MODE_PRIVATE);
         File file = new File(directory, jeu.getNom().replace(' ', '_') + JPG);
+        ImageView myImage = (ImageView) findViewById(R.id.choice_game);
         if(file.exists()){
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            ImageView myImage = (ImageView) findViewById(R.id.choice_game);
             myImage.setImageBitmap(myBitmap);
+        } else {
+            //Image de base
+            myImage.setImageResource(R.mipmap.ic_launcher);
         }
     }
 }

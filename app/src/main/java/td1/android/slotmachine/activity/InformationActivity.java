@@ -17,16 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import td1.android.slotmachine.R;
-import td1.android.slotmachine.adapter.JeuAdapter;
 import td1.android.slotmachine.adapter.ThemeAdapter;
 import td1.android.slotmachine.model.Jeu;
 import td1.android.slotmachine.model.Theme;

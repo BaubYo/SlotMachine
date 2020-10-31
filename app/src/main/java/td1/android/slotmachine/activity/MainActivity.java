@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void onFinish() {
-            ((TextView)findViewById(R.id.countDown)).setText("termine!");
+            ((TextView)findViewById(R.id.countDown)).setText("Terminé!");
             Intent intent = new Intent(getApplicationContext(),ChoiceActivity.class);
             List<Theme> themeToNextAct = new ArrayList<>();
             themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot1)).getText().toString()));
@@ -159,8 +159,6 @@ public class MainActivity extends AppCompatActivity {
         //view = requireActivity().getLayoutInflater().inflate(R.layout.prompts_add_jeu,null);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-
-
         switch (item.getItemId()) {
             case R.id.menu_game_add:
                 List<Theme> themeSelect=new ArrayList<Theme>();
@@ -196,8 +194,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-
                 builder.setView(layout)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -216,8 +212,8 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .create()
                         .show();
-
                 return true;
+
             case R.id.menu_theme_add:
                 View layoutThemeAdd = inflater.inflate(R.layout.prompts_add_theme,null);
                 AlertDialog.Builder builderThemeAdd = new AlertDialog.Builder(this);
@@ -229,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
                                 String temp = themeName.getText().toString();
                                 storage.getThemes().add(new Theme(temp));
                                 storage.saveThemes();
-
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -239,8 +234,8 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .create()
                         .show();
-
                 return true;
+
             case R.id.menu_theme_delete:
                 View layoutThemeDel = inflater.inflate(R.layout.prompts_delete_theme,null);
                 AlertDialog.Builder builderThemeDel = new AlertDialog.Builder(this);
@@ -264,18 +259,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
                 builderThemeDel.setView(layoutThemeDel)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                                 storage.saveThemes();
                             }
                         })
                         .create()
                         .show();
-
                 return true;
             case R.id.menu_game_delete:
                 View layoutJeuDel = inflater.inflate(R.layout.prompts_delete_theme,null);
@@ -312,14 +304,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .create()
                         .show();
-
                 return true;
-
-
-            /*case R.id.menu_theme_modify:
-
-            case R.id.menu_game_modify:*/
-
 
             default:
                 return super.onOptionsItemSelected(item);

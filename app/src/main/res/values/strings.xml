@@ -5,5 +5,5 @@
     <string name="app_another">Un autre jeu ?</string>
     <string name="app_replay">Rejouer ?</string>
 
-    <string name="app_information_information">Année de sortie: %1$d\n%2$s</string>
+    <string name="app_information_information">Année de sortie: %1$d\n\n%2$s</string>
 </resources>
