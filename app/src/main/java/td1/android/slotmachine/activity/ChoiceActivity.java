@@ -102,7 +102,7 @@ public class ChoiceActivity extends AppCompatActivity {
         int compteurThemeCorr=0;
         for (int i=0;i<themeDuJeu.size();i++){
             for(int j=0;j<themesAuto.size();j++)
-                if(themeDuJeu.get(i).getName().equals(themesAuto.get(j).getName())){
+                if(themeDuJeu.get(i).getNom().equals(themesAuto.get(j).getNom())){
                     compteurThemeCorr+=1;
                     break;
                 }

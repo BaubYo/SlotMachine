@@ -59,8 +59,8 @@ public abstract class ThemeAdapter  extends RecyclerView.Adapter<ThemeAdapter.Th
     //Lien entre données et vue
     @Override
     public void onBindViewHolder(@NonNull ThemeHolder holder, int position) {
-        holder.nom.setText(liste.get(position).getName());
-        holder.nom.setBackgroundColor(liste.get(position).getColor());
+        holder.nom.setText(liste.get(position).getNom());
+        holder.nom.setBackgroundColor(liste.get(position).getCouleur());
         holder.itemView.setBackgroundColor(Color.WHITE);
 
     }

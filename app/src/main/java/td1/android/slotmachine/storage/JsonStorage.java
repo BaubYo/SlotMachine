@@ -23,7 +23,6 @@ public class JsonStorage {
     private static final String THEMES = "themes";
     private static final String JEUX = "jeux";
     private static final String NOM = "nom";
-    private static final String NAME = "name";
     private static final String ANNEE = "annee";
     private static final String RESUME = "resume";
 
@@ -203,7 +202,7 @@ public class JsonStorage {
             for (int i = 0; i < liste.size(); i++)
             {
                 JSONObject object = new JSONObject();
-                object.put(NAME, liste.get(i).getName());
+                object.put(NOM, liste.get(i).getNom());
                 array.put(object);
             }
         } catch (JSONException e) {
@@ -232,7 +231,7 @@ public class JsonStorage {
     private Theme jsonToTheme(JSONObject jsonObject) {
         Theme theme = null;
         try {
-            theme = new Theme(jsonObject.getString(NAME));
+            theme = new Theme(jsonObject.getString(NOM));
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -118,18 +118,18 @@ public class MainActivity extends AppCompatActivity {
         Random rand = new Random();
         if (Slot1Continue) {
             int randSlot1 = rand.nextInt(ThemeTest.size());
-            ((TextView) findViewById(R.id.Slot1)).setText(ThemeTest.get(randSlot1).getName());
-            (findViewById(R.id.Slot1)).setBackgroundColor(ThemeTest.get(randSlot1).getColor());
+            ((TextView) findViewById(R.id.Slot1)).setText(ThemeTest.get(randSlot1).getNom());
+            (findViewById(R.id.Slot1)).setBackgroundColor(ThemeTest.get(randSlot1).getCouleur());
         }
         if (Slot2Continue) {
             int randSlot2 = rand.nextInt(ThemeTest.size());
-            ((TextView) findViewById(R.id.Slot2)).setText(ThemeTest.get(randSlot2).getName());
-            (findViewById(R.id.Slot2)).setBackgroundColor(ThemeTest.get(randSlot2).getColor());
+            ((TextView) findViewById(R.id.Slot2)).setText(ThemeTest.get(randSlot2).getNom());
+            (findViewById(R.id.Slot2)).setBackgroundColor(ThemeTest.get(randSlot2).getCouleur());
         }
         if (Slot3Continue) {
             int randSlot3 = rand.nextInt(ThemeTest.size());
-            ((TextView) findViewById(R.id.Slot3)).setText(ThemeTest.get(randSlot3).getName());
-            (findViewById(R.id.Slot3)).setBackgroundColor(ThemeTest.get(randSlot3).getColor());
+            ((TextView) findViewById(R.id.Slot3)).setText(ThemeTest.get(randSlot3).getNom());
+            (findViewById(R.id.Slot3)).setBackgroundColor(ThemeTest.get(randSlot3).getCouleur());
         }
     }
 
