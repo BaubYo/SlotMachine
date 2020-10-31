@@ -1,10 +1,8 @@
 package td1.android.slotmachine.adapter;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,6 @@ import java.util.List;
 
 import td1.android.slotmachine.R;
 import td1.android.slotmachine.model.Jeu;
-import td1.android.slotmachine.model.Theme;
 
 public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHolder>  {
 
@@ -69,7 +66,7 @@ public abstract class JeuAdapter  extends RecyclerView.Adapter<JeuAdapter.JeuHol
         return liste.size();
     }
 
+    //Methode abstraite, donc à completer
     public abstract void onItemClick(View v);
     public abstract void onItemLongClick(View v);
-
 }

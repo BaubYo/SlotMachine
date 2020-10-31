@@ -37,28 +37,17 @@ public class ChoiceActivity extends AppCompatActivity {
         Intent extraIntent = getIntent();
         listTheme = (ArrayList<Theme>)extraIntent.getSerializableExtra("ThemesSelect");
 
-        //FAUDRA GET DATA FROM JSON
-        List<Theme> themes = new ArrayList<>();
-        themes.add(new Theme("RPG"));
-        themes.add(new Theme("Action"));
-        /*
-        jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
-        jeu2 = new Jeu(themes, "CyberChocolat", 2020,  "74>73 !");
-        */
-
         //On tire un jeu
         jeu=TirageParThemes(listTheme);
         if (jeu==null){
             Toast.makeText(getApplicationContext(), "Aucun jeu trouvé. Veuillez ajouter un jeu aux thèmes sans aucun jeux", Toast.LENGTH_SHORT).show();
-            jeu=new Jeu(null,"Défault",0000,"");
+            jeu=new Jeu(null,"Défault",0,"");
         }
-        themes.add(new Theme("Action"));
-        //jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
 
         //On l'affiche
         showImage();
 
-        //Pour renlancer le jeu
+        //Pour trouver un autre jeu qui possède les thèmes
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
             jeu=TirageParThemes(listTheme);
             showImage();
@@ -72,41 +61,41 @@ public class ChoiceActivity extends AppCompatActivity {
         });
     }
 
-        public Jeu TirageParThemes(List<Theme> listTheme){
-            Jeu jeuF = null;
-            List<Jeu> tirageList=new ArrayList<>();
-            JsonStorage storage = new JsonStorage(getBaseContext());
-            List<Jeu> jeux = storage.getJeux();
+    //Tirage d'un jeu qui possède les 3 thèmes (si il n'y en a pas, on recommence avec 2 thèmes, pareil pour 1 thèmes)
+    public Jeu TirageParThemes(List<Theme> listTheme){
+        Jeu jeuF = null;
+        List<Jeu> tirageList=new ArrayList<>();
+        JsonStorage storage = new JsonStorage(getBaseContext());
+        List<Jeu> jeux = storage.getJeux();
 
-            for(int i=3;i>0;i--){
-                if (i==3){
-                    for(Jeu j : jeux){
-                        if(Correspondance(j.getThemes(),listTheme,i)){
-                            tirageList.add(j);
-                        }
-                    }
-                }
-                else if (i==2 && tirageList.isEmpty()){
-                    for(Jeu j : jeux){
-                        if(Correspondance(j.getThemes(),listTheme,i)){
-                            tirageList.add(j);
-                        }
-                    }
-                }
-                else if (tirageList.isEmpty()){
-                    for(Jeu j : jeux){
-                        if(Correspondance(j.getThemes(),listTheme,i)){
-                            tirageList.add(j);
-                        }
+        for(int i=3;i>0;i--){
+            if (i==3){
+                for(Jeu j : jeux){
+                    if(Correspondance(j.getThemes(),listTheme,i)){
+                        tirageList.add(j);
                     }
                 }
             }
-
-            if (!tirageList.isEmpty()){
-                Random rand=new Random();
-                jeuF=tirageList.get(rand.nextInt(tirageList.size()));
+            else if (i==2 && tirageList.isEmpty()){
+                for(Jeu j : jeux){
+                    if(Correspondance(j.getThemes(),listTheme,i)){
+                        tirageList.add(j);
+                    }
+                }
             }
-            return jeuF;
+            else if (tirageList.isEmpty()){
+                for(Jeu j : jeux){
+                    if(Correspondance(j.getThemes(),listTheme,i)){
+                        tirageList.add(j);
+                    }
+                }
+            }
+        }
+        if (!tirageList.isEmpty()){
+            Random rand=new Random();
+            jeuF=tirageList.get(rand.nextInt(tirageList.size()));
+        }
+        return jeuF;
     }
 
     public Boolean Correspondance(List<Theme> themeDuJeu,List<Theme> themesAuto,int nbThemeNeed){
@@ -135,7 +124,7 @@ public class ChoiceActivity extends AppCompatActivity {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             myImage.setImageBitmap(myBitmap);
         } else {
-            //Image de base
+            //Image par defaut
             myImage.setImageResource(R.mipmap.ic_launcher);
         }
     }

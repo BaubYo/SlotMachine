@@ -59,7 +59,7 @@ public class JsonStorage {
         FileReader fileReaderJeux = null;
         boolean fileFind = false;
 
-        while (!fileFind)
+        while (!fileFind) //Si les fichiers n'existe pas, on les créer puis les charges
         {
             try {
                 fileReaderThemes = new FileReader(fileThemes);
@@ -67,10 +67,8 @@ public class JsonStorage {
                 fileFind = true;
             } catch (FileNotFoundException e) {
                 createData();
-                //e.printStackTrace();
             }
         }
-
 
         //On ouvre le fichier et copie son contenu sous forme de string
         BufferedReader bufferedReader = new BufferedReader(fileReaderThemes);
@@ -319,7 +317,6 @@ public class JsonStorage {
                 "Le jeu est divisé en deux phases : une phase orientée sur la gestion d'un hameau et d'une équipe d'aventuriers et une phase orientée sur l'action et l'exploration par cette équipe."
         ));
 
-        //C'est bof comme exemple mais ça passera on va dire
         jeux.add(new Jeu(new ArrayList<Theme>() {{
             add(new Theme("FPS"));
             add(new Theme("Action"));

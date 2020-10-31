@@ -26,13 +26,10 @@ public class Jeu implements Serializable {
         this.resume = resume;
     }
 
-
-
     //Getter et Setter
     public List<Theme> getThemes() {
         return themes;
     }
-
     public void setThemes(List<Theme> themes) {
         this.themes = themes;
     }
@@ -40,7 +37,6 @@ public class Jeu implements Serializable {
     public String getNom() {
         return nom;
     }
-
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -48,7 +44,6 @@ public class Jeu implements Serializable {
     public int getAnnee() {
         return annee;
     }
-
     public void setAnnee(int annee) {
         this.annee = annee;
     }
@@ -56,22 +51,7 @@ public class Jeu implements Serializable {
     public String getResume() {
         return resume;
     }
-
     public void setResume(String resume) {
         this.resume = resume;
     }
-/*
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(age);
-        dest.writeString(name);
-        dest.writeList(nicknames);
-    }
-
- */
 }

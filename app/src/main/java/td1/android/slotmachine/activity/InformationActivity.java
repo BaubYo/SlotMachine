@@ -97,7 +97,7 @@ public class InformationActivity extends AppCompatActivity {
         });
     }
 
-    //On récupère l'image puis on la sauvegarde
+    //On récupère l'image (prise en photo) puis on la sauvegarde
     @Override
     protected void onActivityResult(int request, int result, Intent data) {
         super.onActivityResult(request, result, data);

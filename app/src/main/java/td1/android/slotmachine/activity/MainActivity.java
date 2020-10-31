@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
 
-    //BOOLEAN POUR LA LOOP
+    //Boolean pour la boucle
     protected Boolean Slot1Continue=false;
     protected Boolean Slot2Continue=false;
     protected Boolean Slot3Continue=false;
@@ -53,16 +53,7 @@ public class MainActivity extends AppCompatActivity {
         ThemeTest = storage.getThemes();
         JeuTest=storage.getJeux();
 
-        /*
-        ThemeTest.add(new Theme("RPG"));
-        ThemeTest.add(new Theme("Tactique"));
-        ThemeTest.add(new Theme("RTS"));
-        ThemeTest.add(new Theme("Strategie"));
-        ThemeTest.add(new Theme("Mystere"));
-        ThemeTest.add(new Theme("Action"));
-         */
-
-        //Onclick sur le button levier envoie les themes ( A FAIRE ) et affiche la vue ChoiceActivity
+        //Onclick sur le button levier envoie les themes, puis affiche la vue ChoiceActivity au bout de 3s
         findViewById(R.id.MainSlotButton).setOnClickListener((v)-> {
             if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
                 handler.removeCallbacks(runnable);
@@ -75,25 +66,23 @@ public class MainActivity extends AppCompatActivity {
             Slot3Continue = true;
         });
 
+        //On change les etats
         findViewById(R.id.StopSlot1Button).setOnClickListener((v)-> {
             Slot1Continue=false;
         });
-
         findViewById(R.id.StopSlot2Button).setOnClickListener((v)-> {
             Slot2Continue=false;
         });
-
         findViewById(R.id.StopSlot3Button).setOnClickListener((v)-> {
             Slot3Continue=false;
         });
     }
 
+    //Boucle toute les 20 ms
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             roulette(ThemeTest);
-
-            // 30 ms boucle
             handler.postDelayed(runnable, 20);
             if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
                 handler.removeCallbacks(runnable);
@@ -102,12 +91,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //Delay
     CountDownTimer countDownTimer= new CountDownTimer(3600, 900)
     {
+        //affichage du temps restant
         public void onTick(long millisUntilFinished) {
             ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " secondes restantes");
         }
 
+        //Quand le delay est terminé, on envoi les thèmes selectionné
         public void onFinish() {
             ((TextView)findViewById(R.id.countDown)).setText("Terminé!");
             Intent intent = new Intent(getApplicationContext(),ChoiceActivity.class);
@@ -121,23 +113,21 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //Affichage des thèmes aléatoire
     protected void roulette(List<Theme> ThemeTest){
         Random rand = new Random();
         if (Slot1Continue) {
             int randSlot1 = rand.nextInt(ThemeTest.size());
-            //TEXT VIEW GAUCHE (METTRE SON NOM + CHANGEMENT COULEUR)
             ((TextView) findViewById(R.id.Slot1)).setText(ThemeTest.get(randSlot1).getName());
             (findViewById(R.id.Slot1)).setBackgroundColor(ThemeTest.get(randSlot1).getColor());
         }
         if (Slot2Continue) {
             int randSlot2 = rand.nextInt(ThemeTest.size());
-            //TEXT VIEW GAUCHE (METTRE SON NOM + CHANGEMENT COULEUR)
             ((TextView) findViewById(R.id.Slot2)).setText(ThemeTest.get(randSlot2).getName());
             (findViewById(R.id.Slot2)).setBackgroundColor(ThemeTest.get(randSlot2).getColor());
         }
         if (Slot3Continue) {
             int randSlot3 = rand.nextInt(ThemeTest.size());
-            //TEXT VIEW GAUCHE (METTRE SON NOM + CHANGEMENT COULEUR)
             ((TextView) findViewById(R.id.Slot3)).setText(ThemeTest.get(randSlot3).getName());
             (findViewById(R.id.Slot3)).setBackgroundColor(ThemeTest.get(randSlot3).getColor());
         }
@@ -154,12 +144,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //Quand un menu est selectionné, on affiche sa fenêtre correspondante
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //view = requireActivity().getLayoutInflater().inflate(R.layout.prompts_add_jeu,null);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         switch (item.getItemId()) {
+            //Si on veux ajouter un jeu
             case R.id.menu_game_add:
                 List<Theme> themeSelect=new ArrayList<Theme>();
                 View layout = inflater.inflate(R.layout.prompts_add_jeu,null);
@@ -214,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
+            //Si on veux ajouter un thème
             case R.id.menu_theme_add:
                 View layoutThemeAdd = inflater.inflate(R.layout.prompts_add_theme,null);
                 AlertDialog.Builder builderThemeAdd = new AlertDialog.Builder(this);
@@ -236,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
+            //Si on veux supprimer un theme
             case R.id.menu_theme_delete:
                 View layoutThemeDel = inflater.inflate(R.layout.prompts_delete_theme,null);
                 AlertDialog.Builder builderThemeDel = new AlertDialog.Builder(this);
@@ -250,12 +244,11 @@ public class MainActivity extends AppCompatActivity {
                         //rien
                     }
 
+                    //Quand on click longtemps, on supprime le thème
                     @Override
                     public void onItemLongClick(View v) {
                         storage.getThemes().remove(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
                         this.notifyDataSetChanged();
-
-
                     }
                 });
 
@@ -263,12 +256,15 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                //Puis on sauvegarde les thèmes
                                 storage.saveThemes();
                             }
                         })
                         .create()
                         .show();
                 return true;
+
+            //Si on veux supprimer un jeu
             case R.id.menu_game_delete:
                 View layoutJeuDel = inflater.inflate(R.layout.prompts_delete_theme,null);
                 AlertDialog.Builder builderJeuDel = new AlertDialog.Builder(this);
@@ -284,27 +280,26 @@ public class MainActivity extends AppCompatActivity {
                         //rien
                     }
 
+                    //Quand on click longtemps, on supprime le jeu
                     @Override
                     public void onItemLongClick(View v) {
                         storage.getJeux().remove(JeuTest.get(listJeuDel.getChildViewHolder(v).getAdapterPosition()));
                         this.notifyDataSetChanged();
-
-
                     }
                 });
-
-
                 builderJeuDel.setView(layoutJeuDel)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
+                                //Puis on sauvegarde la liste
                                 storage.saveJeux();
                             }
                         })
                         .create()
                         .show();
                 return true;
+
+            //TODO Faire modify !!!
 
             default:
                 return super.onOptionsItemSelected(item);
