@@ -1,11 +1,17 @@
 package td1.android.slotmachine.activity;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,9 +24,8 @@ import td1.android.slotmachine.storage.JsonStorage;
 public class ChoiceActivity extends AppCompatActivity {
 
     private Jeu jeu;
-    private Jeu jeu2;
     private List<Theme> listTheme;
-    //private JsonStorage storage;
+    public static final String JPG = ".jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class ChoiceActivity extends AppCompatActivity {
         jeu2 = new Jeu(themes, "CyberChocolat", 2020,  "74>73 !");
         */
 
+        //On tire un jeu
         jeu=TirageParThemes(listTheme);
         if (jeu==null){
             Toast.makeText(getApplicationContext(), "Aucun jeu trouvé. Veuillez ajouter un jeu aux thèmes sans aucun jeux", Toast.LENGTH_SHORT).show();
@@ -49,9 +55,13 @@ public class ChoiceActivity extends AppCompatActivity {
         themes.add(new Theme("Action"));
         //jeu = new Jeu(themes, "Cyberpunk", 2020,  "Dans ce jeu, tu peux jouer !");
 
+        //On l'affiche
+        showImage();
+
         //Pour renlancer le jeu
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
             jeu=TirageParThemes(listTheme);
+            showImage();
         });
 
         //Pour renvoyer sur la page d'information
@@ -126,5 +136,16 @@ public class ChoiceActivity extends AppCompatActivity {
 
     }
 
-
+    //Récuparation de l'image de fond si existant
+    private void showImage()
+    {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("images", Context.MODE_PRIVATE);
+        File file = new File(directory, jeu.getNom().replace(' ', '_') + JPG);
+        if(file.exists()){
+            Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            ImageView myImage = (ImageView) findViewById(R.id.choice_game);
+            myImage.setImageBitmap(myBitmap);
+        }
+    }
 }

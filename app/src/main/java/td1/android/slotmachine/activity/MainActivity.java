@@ -74,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
             Slot2Continue = true;
             Slot3Continue = true;
         });
-        findViewById(R.id.changer_page).setOnClickListener((v)-> {
-            Intent intent = new Intent(getApplicationContext(),ChoiceActivity.class);
-            startActivity(intent);
-        });
 
         findViewById(R.id.StopSlot1Button).setOnClickListener((v)-> {
             Slot1Continue=false;
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     CountDownTimer countDownTimer= new CountDownTimer(3600, 900)
     {
         public void onTick(long millisUntilFinished) {
-            ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " seconds restantes");
+            ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " secondes restantes");
         }
 
         public void onFinish() {
