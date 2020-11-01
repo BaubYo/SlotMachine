@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -53,17 +54,35 @@ public class MainActivity extends AppCompatActivity {
         ThemeTest = storage.getThemes();
         JeuTest=storage.getJeux();
 
-        //Onclick sur le button levier envoie les themes, puis affiche la vue ChoiceActivity au bout de 3s
-        findViewById(R.id.MainSlotButton).setOnClickListener((v)-> {
-            if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
-                handler.removeCallbacks(runnable);
-                countDownTimer.cancel();
-                ((TextView)findViewById(R.id.countDown)).setText("");
-                handler.post(runnable);
+        //Quand on baisse le levier, et quand il atteint le bout, on lance le tirage de thème aléatoire
+        SeekBar seekBar = (SeekBar)findViewById(R.id.launch_machine);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            //Dès que la valeur change
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(progress >= 95)
+                {
+                    if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
+                        handler.removeCallbacks(runnable);
+                        countDownTimer.cancel();
+                        ((TextView)findViewById(R.id.countDown)).setText("");
+                        handler.post(runnable);
+                    }
+                    Slot1Continue = true;
+                    Slot2Continue = true;
+                    Slot3Continue = true;
+                }
             }
-            Slot1Continue = true;
-            Slot2Continue = true;
-            Slot3Continue = true;
+            //Quand on commence a appuyer sur la seekbar
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // rien
+            }
+            //Quand on relache la seekbar (on remet à 0 la valeur)
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                seekBar.setProgress(0);
+            }
         });
 
         //On change les etats
