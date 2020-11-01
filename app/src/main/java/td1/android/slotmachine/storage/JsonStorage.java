@@ -46,10 +46,7 @@ public class JsonStorage {
 
     //Constructeur
     public JsonStorage(Context context) {
-
         this.context = context;
-        jeux = new ArrayList<Jeu>();
-        themes = new ArrayList<Theme>();
 
         //Verification que l'on possède bien les fichiers
         File fileThemes = new File(context.getFilesDir(),"themes.json");
@@ -61,6 +58,8 @@ public class JsonStorage {
         while (!fileFind) //Si les fichiers n'existe pas, on les créer puis les charges
         {
             try {
+                jeux = new ArrayList<Jeu>();
+                themes = new ArrayList<Theme>();
                 fileReaderThemes = new FileReader(fileThemes);
                 fileReaderJeux = new FileReader(fileJeux);
                 fileFind = true;
@@ -92,7 +91,6 @@ public class JsonStorage {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         //On ouvre le fichier et copie son contenu sous forme de string
         BufferedReader buffer= new BufferedReader(fileReaderJeux);
