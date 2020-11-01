@@ -71,6 +71,7 @@ public abstract class ThemeAdapter  extends RecyclerView.Adapter<ThemeAdapter.Th
         return liste.size();
     }
 
+
     //Methode abstraite, donc à completer
     public abstract void onItemClick(View v);
     public abstract void onItemLongClick(View v);

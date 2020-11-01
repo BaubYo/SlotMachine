@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //On récupère les données depuis le JSON
         storage = new JsonStorage(getBaseContext()); //ça crash ici !!!
-        ThemeTest = storage.getThemes();
+        //ThemeTest = storage.getThemes();
         JeuTest=storage.getJeux();
 
         //Quand on baisse le levier, et quand il atteint le bout, on lance le tirage de thème aléatoire
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            roulette(ThemeTest);
+            roulette(storage.getThemes());
             handler.postDelayed(runnable, 20);
             if (!Slot1Continue && !Slot2Continue && !Slot3Continue) {
                 handler.removeCallbacks(runnable);
@@ -186,15 +186,15 @@ public class MainActivity extends AppCompatActivity {
                 //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
 
-                list.setAdapter(new ThemeAdapter(ThemeTest) {
+                list.setAdapter(new ThemeAdapter(storage.getThemes()) {
                     @Override
                     public void onItemClick(View v) {
                         if(((ColorDrawable)list.getChildViewHolder(v).itemView.getBackground()).getColor()==Color.WHITE) {
-                            themeSelect.add(ThemeTest.get(list.getChildViewHolder(v).getAdapterPosition()));
+                            themeSelect.add(storage.getThemes().get(list.getChildViewHolder(v).getAdapterPosition()));
                             list.getChildViewHolder(v).itemView.setBackgroundColor(Color.GREEN);
                         }
                         else{
-                            themeSelect.remove(ThemeTest.get(list.getChildViewHolder(v).getAdapterPosition()));
+                            themeSelect.remove(storage.getThemes().get(list.getChildViewHolder(v).getAdapterPosition()));
                             list.getChildViewHolder(v).itemView.setBackgroundColor(Color.WHITE);
                         }
                     }
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                 listThemeDel.setLayoutManager(new LinearLayoutManager(this));
                 //listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
-                listThemeDel.setAdapter(new ThemeAdapter(ThemeTest) {
+                listThemeDel.setAdapter(new ThemeAdapter(storage.getThemes()) {
                     @Override
                     public void onItemClick(View v) {
                         //rien
@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                     //Quand on click longtemps, on supprime le thème
                     @Override
                     public void onItemLongClick(View v) {
-                        storage.getThemes().remove(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
+                        storage.getThemes().remove(storage.getThemes().get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
                         this.notifyDataSetChanged();
                     }
                 });
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                 //listJeuDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                 listJeuDel.setLayoutManager(new LinearLayoutManager(this));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
-                listJeuDel.setAdapter(new JeuAdapter(JeuTest) {
+                listJeuDel.setAdapter(new JeuAdapter(storage.getJeux()) {
                     @Override
                     public void onItemClick(View v) {
                         //rien
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                 listThemeModify.setLayoutManager(new LinearLayoutManager(this));
                 //listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
-                listThemeModify.setAdapter(new ThemeAdapter(ThemeTest) {
+                listThemeModify.setAdapter(new ThemeAdapter(storage.getThemes()) {
                     @Override
                     public void onItemClick(View v) {
                         View layoutThemeModify2 = inflater.inflate(R.layout.prompts_add_theme,null);
@@ -352,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
                     //Quand on click longtemps, on supprime le thème
                     @Override
                     public void onItemLongClick(View v) {
-                        //storage.getThemes().remove(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
+                        //storage.getThemes().remove(storage.getThemes().get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
                        //this.notifyDataSetChanged();
                         //rien
                     }
@@ -370,8 +370,90 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
-            //case R.id.menu_game_modify:
+            case R.id.menu_game_modify:
+                List<Theme> themeSelectM=new ArrayList<Theme>();
+                View layoutJeuModify = inflater.inflate(R.layout.prompts_delete_theme,null);
 
+                AlertDialog.Builder builderJeuModify = new AlertDialog.Builder(this);
+                AlertDialog.Builder builderJeuModify2 = new AlertDialog.Builder(this);
+
+
+                RecyclerView listJeuModify = (RecyclerView) layoutJeuModify.findViewById(R.id.listThemesDel);
+                listJeuModify.setLayoutManager(new LinearLayoutManager(this));
+
+                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+                listJeuModify.setAdapter(new JeuAdapter(storage.getJeux()) {
+                    @Override
+                    public void onItemClick(View v) {
+                        View layoutJeuModify2 = inflater.inflate(R.layout.prompts_modify_jeu,null);
+                        final EditText jeuNomModify = (EditText) layoutJeuModify2.findViewById(R.id.promptsJeuName);
+                        final EditText jeuAnModify = (EditText) layoutJeuModify2.findViewById(R.id.promptsJeuAn);
+                        final EditText jeuResumeModify = (EditText) layoutJeuModify2.findViewById(R.id.promptsJeuResume);
+
+                        jeuNomModify.setText(storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).getNom());
+                        jeuAnModify.setText(String.valueOf(storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).getAnnee()));
+                        jeuResumeModify.setText(storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).getResume());
+
+
+                        RecyclerView listJeuModify2 = (RecyclerView) layoutJeuModify2.findViewById(R.id.listThemes);
+                        listJeuModify2.setLayoutManager(new LinearLayoutManager(null,LinearLayoutManager.VERTICAL,false));
+                        listJeuModify2.setAdapter(new ThemeAdapter(storage.getThemes()) {
+                            @Override
+                            public void onItemClick(View v) {
+
+                                if(((ColorDrawable)listJeuModify2.getChildViewHolder(v).itemView.getBackground()).getColor()==Color.WHITE) {
+                                    themeSelectM.add(storage.getThemes().get(listJeuModify2.getChildViewHolder(v).getAdapterPosition()));
+                                    listJeuModify2.getChildViewHolder(v).itemView.setBackgroundColor(Color.GREEN);
+                                }
+                                else{
+                                    themeSelectM.remove(storage.getThemes().get(listJeuModify2.getChildViewHolder(v).getAdapterPosition()));
+                                    listJeuModify2.getChildViewHolder(v).itemView.setBackgroundColor(Color.WHITE);
+                                }
+                            }
+
+                            @Override
+                            public void onItemLongClick(View v) {
+
+                            }
+                        });
+
+                        builderJeuModify2.setView(layoutJeuModify2)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setNom(jeuNomModify.getText().toString());
+                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setAnnee(Integer.parseInt(jeuAnModify.getText().toString()));
+                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setResume(jeuResumeModify.getText().toString());
+                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setThemes(themeSelectM);
+
+
+                                        listJeuModify.getAdapter().notifyDataSetChanged();
+                                        storage.saveJeux();
+
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View v) {
+                        //rien
+                    }
+                });
+
+                builderJeuModify.setView(layoutJeuModify)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                storage.saveJeux();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
