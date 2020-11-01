@@ -299,7 +299,60 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
-            //TODO Faire modify !!!
+
+            case R.id.menu_theme_modify:
+                View layoutThemeModify = inflater.inflate(R.layout.prompts_modify_theme,null);
+                AlertDialog.Builder builderThemeModify = new AlertDialog.Builder(this);
+
+                AlertDialog.Builder builderThemeModify2 = new AlertDialog.Builder(this);
+
+                RecyclerView listThemeModify = (RecyclerView) layoutThemeModify.findViewById(R.id.listThemesDel);
+                listThemeModify.setLayoutManager(new LinearLayoutManager(this));
+                //listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
+                listThemeModify.setAdapter(new ThemeAdapter(ThemeTest) {
+                    @Override
+                    public void onItemClick(View v) {
+                        View layoutThemeModify2 = inflater.inflate(R.layout.prompts_add_theme,null);
+                        ((EditText)layoutThemeModify2.findViewById(R.id.promptsThemeName)).setText(storage.getThemes().get(listThemeModify.getChildViewHolder(v).getAdapterPosition()).getNom());
+                        builderThemeModify2.setView(layoutThemeModify2)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        String tempNomAncien=storage.getThemes().get(listThemeModify.getChildViewHolder(v).getAdapterPosition()).getNom();
+                                        storage.getThemes().get(listThemeModify.getChildViewHolder(v).getAdapterPosition()).setNom(((EditText)layoutThemeModify2.findViewById(R.id.promptsThemeName)).getText().toString());
+                                        storage.changeThemeChaqueJeu(tempNomAncien,((EditText)layoutThemeModify2.findViewById(R.id.promptsThemeName)).getText().toString());
+                                        listThemeModify.getAdapter().notifyDataSetChanged();
+                                    }
+                                })
+                                .create()
+                                .show();
+
+                    }
+
+                    //Quand on click longtemps, on supprime le thème
+                    @Override
+                    public void onItemLongClick(View v) {
+                        //storage.getThemes().remove(ThemeTest.get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
+                       //this.notifyDataSetChanged();
+                        //rien
+                    }
+                });
+
+                builderThemeModify.setView(layoutThemeModify)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //Puis on sauvegarde les thèmes
+                                storage.saveThemes();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            //case R.id.menu_game_modify:
+
 
             default:
                 return super.onOptionsItemSelected(item);

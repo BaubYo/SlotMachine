@@ -325,4 +325,15 @@ public class JsonStorage {
         saveJeux();
         saveThemes();
     }
+    public void changeThemeChaqueJeu(String nomAChanger,String nomNouveau){
+        List<Jeu> jeux=new ArrayList<Jeu>();
+        jeux=this.getJeux();
+        for (int i=0;i<jeux.size();i++){
+            for (int j=0;j<jeux.get(i).getThemes().size();j++){
+                if(jeux.get(i).getThemes().get(j).getNom().equals(nomAChanger))
+                    jeux.get(i).getThemes().get(j).setNom(nomNouveau);
+            }
+        }
+        this.saveJeux();
+    }
 }
