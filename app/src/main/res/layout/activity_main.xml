@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:text="Veuillez lancer la machine !"
+                android:text="@string/app_start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </LinearLayout>
 
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="\?"
+                    android:text="@string/app_question_mark"
                     android:background="@color/jaune"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -61,7 +61,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@color/rouge"
-                    android:text="\?"
+                    android:text="@string/app_question_mark"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="\?"
+                    android:text="@string/app_question_mark"
                     android:background="@color/vert"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />

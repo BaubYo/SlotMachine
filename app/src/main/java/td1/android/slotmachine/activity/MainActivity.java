@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -182,10 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 RecyclerView list = (RecyclerView) layout.findViewById(R.id.listThemes);
                 list.setLayoutManager(new LinearLayoutManager(this));
 
-                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
-
                 list.setAdapter(new ThemeAdapter(storage.getThemes()) {
                     @Override
                     public void onItemClick(View v) {
@@ -205,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                //Sauvegarde + affichage du toast
                 builder.setView(layout)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -214,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                                 String sJeuResume = jeuResume.getText().toString();
                                 storage.getJeux().add(new Jeu(themeSelect,sJeuName,sJeuAn,sJeuResume));
                                 storage.saveJeux();
+                                Toast.makeText(getApplicationContext(), sJeuName + " à été ajouté", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -237,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
                                 String temp = themeName.getText().toString();
                                 storage.getThemes().add(new Theme(temp));
                                 storage.saveThemes();
+                                Toast.makeText(getApplicationContext(), temp + " à été ajouté", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -255,8 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
                 RecyclerView listThemeDel = (RecyclerView) layoutThemeDel.findViewById(R.id.listThemesDel);
                 listThemeDel.setLayoutManager(new LinearLayoutManager(this));
-                //listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
+
                 listThemeDel.setAdapter(new ThemeAdapter(storage.getThemes()) {
                     @Override
                     public void onItemClick(View v) {
@@ -266,16 +265,17 @@ public class MainActivity extends AppCompatActivity {
                     //Quand on click longtemps, on supprime le thème
                     @Override
                     public void onItemLongClick(View v) {
-                        storage.getThemes().remove(storage.getThemes().get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
+                        Theme ancienTheme = storage.getThemes().get(listThemeDel.getChildViewHolder(v).getAdapterPosition());
+                        storage.getThemes().remove(ancienTheme);
                         this.notifyDataSetChanged();
+                        Toast.makeText(getApplicationContext(), ancienTheme.getNom() + " à été supprimé", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                     }
                 });
-
+                //Sauvegarde
                 builderThemeDel.setView(layoutThemeDel)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //Puis on sauvegarde les thèmes
                                 storage.saveThemes();
                             }
                         })
@@ -302,15 +302,17 @@ public class MainActivity extends AppCompatActivity {
                     //Quand on click longtemps, on supprime le jeu
                     @Override
                     public void onItemLongClick(View v) {
-                        storage.getJeux().remove(JeuTest.get(listJeuDel.getChildViewHolder(v).getAdapterPosition()));
+                        Jeu ancienJeu = JeuTest.get(listJeuDel.getChildViewHolder(v).getAdapterPosition());
+                        storage.getJeux().remove(ancienJeu);
                         this.notifyDataSetChanged();
+                        Toast.makeText(getApplicationContext(), ancienJeu.getNom() + " à été supprimé", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                     }
                 });
+                //Sauvegarde
                 builderJeuDel.setView(layoutJeuDel)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //Puis on sauvegarde la liste
                                 storage.saveJeux();
                             }
                         })
@@ -318,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
-
+            //Si on veut modifier un theme
             case R.id.menu_theme_modify:
                 View layoutThemeModify = inflater.inflate(R.layout.prompts_modify_theme,null);
                 AlertDialog.Builder builderThemeModify = new AlertDialog.Builder(this);
@@ -327,8 +329,6 @@ public class MainActivity extends AppCompatActivity {
 
                 RecyclerView listThemeModify = (RecyclerView) layoutThemeModify.findViewById(R.id.listThemesDel);
                 listThemeModify.setLayoutManager(new LinearLayoutManager(this));
-                //listThemeDel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                //FAIRE AVEC JSON GET ALL THEMES list.setAdapter(new JeuAdapter() {});
                 listThemeModify.setAdapter(new ThemeAdapter(storage.getThemes()) {
                     @Override
                     public void onItemClick(View v) {
@@ -342,27 +342,27 @@ public class MainActivity extends AppCompatActivity {
                                         storage.getThemes().get(listThemeModify.getChildViewHolder(v).getAdapterPosition()).setNom(((EditText)layoutThemeModify2.findViewById(R.id.promptsThemeName)).getText().toString());
                                         storage.changeThemeChaqueJeu(tempNomAncien,((EditText)layoutThemeModify2.findViewById(R.id.promptsThemeName)).getText().toString());
                                         listThemeModify.getAdapter().notifyDataSetChanged();
+                                        Toast.makeText(getApplicationContext(), tempNomAncien + " à été modifié", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                                     }
                                 })
                                 .create()
                                 .show();
-
                     }
 
-                    //Quand on click longtemps, on supprime le thème
                     @Override
                     public void onItemLongClick(View v) {
                         //storage.getThemes().remove(storage.getThemes().get(listThemeDel.getChildViewHolder(v).getAdapterPosition()));
                        //this.notifyDataSetChanged();
+
                         //rien
                     }
                 });
 
+                //Sauvegarde
                 builderThemeModify.setView(layoutThemeModify)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //Puis on sauvegarde les thèmes
                                 storage.saveThemes();
                             }
                         })
@@ -370,21 +370,19 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return true;
 
+            //Si on veut modifier un jeu
             case R.id.menu_game_modify:
                 List<Theme> themeSelectM=new ArrayList<Theme>();
                 View layoutJeuModify = inflater.inflate(R.layout.prompts_delete_theme,null);
 
-                AlertDialog.Builder builderJeuModify = new AlertDialog.Builder(this);
-                AlertDialog.Builder builderJeuModify2 = new AlertDialog.Builder(this);
-
-
+                //On créer plusieurs AlertDialog (selection puis modification)
+                AlertDialog.Builder builderEcranSelection = new AlertDialog.Builder(this);
+                AlertDialog.Builder builderEcranModification = new AlertDialog.Builder(this);
                 RecyclerView listJeuModify = (RecyclerView) layoutJeuModify.findViewById(R.id.listThemesDel);
                 listJeuModify.setLayoutManager(new LinearLayoutManager(this));
 
-                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                //list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
                 listJeuModify.setAdapter(new JeuAdapter(storage.getJeux()) {
+                    //Quand on clique on envoi le jeu selectionné vers la deuxième
                     @Override
                     public void onItemClick(View v) {
                         View layoutJeuModify2 = inflater.inflate(R.layout.prompts_modify_jeu,null);
@@ -395,7 +393,6 @@ public class MainActivity extends AppCompatActivity {
                         jeuNomModify.setText(storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).getNom());
                         jeuAnModify.setText(String.valueOf(storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).getAnnee()));
                         jeuResumeModify.setText(storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).getResume());
-
 
                         RecyclerView listJeuModify2 = (RecyclerView) layoutJeuModify2.findViewById(R.id.listThemes);
                         listJeuModify2.setLayoutManager(new LinearLayoutManager(null,LinearLayoutManager.VERTICAL,false));
@@ -415,23 +412,24 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onItemLongClick(View v) {
-
+                                //rien
                             }
                         });
 
-                        builderJeuModify2.setView(layoutJeuModify2)
+                        //Sauvegarde + affichage du toast
+                        builderEcranModification.setView(layoutJeuModify2)
                                 .setCancelable(false)
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setNom(jeuNomModify.getText().toString());
-                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setAnnee(Integer.parseInt(jeuAnModify.getText().toString()));
-                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setResume(jeuResumeModify.getText().toString());
-                                        storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition()).setThemes(themeSelectM);
-
+                                        Jeu ancienJeu = storage.getJeux().get(listJeuModify.getChildViewHolder(v).getAdapterPosition());
+                                        ancienJeu.setNom(jeuNomModify.getText().toString());
+                                        ancienJeu.setAnnee(Integer.parseInt(jeuAnModify.getText().toString()));
+                                        ancienJeu.setResume(jeuResumeModify.getText().toString());
+                                        ancienJeu.setThemes(themeSelectM);
 
                                         listJeuModify.getAdapter().notifyDataSetChanged();
                                         storage.saveJeux();
-
+                                        Toast.makeText(getApplicationContext(), ancienJeu.getNom() + " à été modifié", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                                     }
                                 })
                                 .create()
@@ -443,8 +441,8 @@ public class MainActivity extends AppCompatActivity {
                         //rien
                     }
                 });
-
-                builderJeuModify.setView(layoutJeuModify)
+                //Sauvegarde
+                builderEcranSelection.setView(layoutJeuModify)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
