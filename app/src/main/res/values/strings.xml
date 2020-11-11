@@ -3,9 +3,12 @@
 
     <!-- A modifier peut etre -->
     <string name="app_another">Un autre jeu ?</string>
+    <string name="app_selectGame">Jeu selectionné : %1$s</string>
     <string name="app_replay">Rejouer ?</string>
     <string name="app_start">Veuillez lancer la machine !</string>
     <string name="app_question_mark">\?</string>
+    <string name="app_button_cancel">Annuler</string>
+    <string name="app_button_ok">OK</string>
 
     <string name="app_information_information">Année de sortie: %1$d\n\n%2$s</string>
 </resources>

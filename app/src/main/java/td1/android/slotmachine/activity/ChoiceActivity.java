@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class ChoiceActivity extends AppCompatActivity {
     private Jeu jeu;
     private List<Theme> listTheme;
     public static final String JPG = ".jpg";
+    private TextView selectedGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class ChoiceActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Aucun jeu trouvé. Veuillez ajouter un jeu aux thèmes sans aucun jeux", Toast.LENGTH_SHORT).show();
             jeu=new Jeu(null,"Défault",0,"");
         }
+        selectedGame= findViewById(R.id.SelectedGame);
+        selectedGame.setText(getString(R.string.app_selectGame, jeu.getNom()));
 
         //On l'affiche
         showImage();
@@ -51,6 +55,7 @@ public class ChoiceActivity extends AppCompatActivity {
         findViewById(R.id.choice_another).setOnClickListener((v) -> {
             jeu=TirageParThemes(listTheme);
             showImage();
+            selectedGame.setText(getString(R.string.app_selectGame, jeu.getNom()));
         });
 
         //Pour renvoyer sur la page d'information
