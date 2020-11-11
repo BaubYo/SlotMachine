@@ -42,7 +42,7 @@ public class ChoiceActivity extends AppCompatActivity {
         //On tire un jeu
         jeu=TirageParThemes(listTheme);
         if (jeu==null){
-            Toast.makeText(getApplicationContext(), "Aucun jeu trouvé. Veuillez ajouter un jeu aux thèmes sans aucun jeux", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.app_empty_games), Toast.LENGTH_SHORT).show();
             jeu=new Jeu(null,"Défault",0,"");
         }
         selectedGame= findViewById(R.id.SelectedGame);

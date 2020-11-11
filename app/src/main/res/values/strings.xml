@@ -13,6 +13,9 @@
     <string name="app_toast_add">%s à été ajouté</string>
     <string name="app_toast_modify">%s à été modifié</string>
     <string name="app_toast_delete">%s à été suppimé</string>
+    <string name="app_seconds">%d secondes restantes</string>
+    <string name="app_finished">Terminé!</string>
+    <string name="app_empty_games">Aucun jeu trouvé. Veuillez ajouter un jeu aux thèmes sans aucun jeux</string>
 
     <string name="app_information_information">Année de sortie: %1$d\n\n%2$s</string>
 </resources>

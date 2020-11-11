@@ -39,9 +39,9 @@ public class InformationActivity extends AppCompatActivity {
 
         //Si aucun jeu n'est renvoyer, on donne les valeurs suivante
         List<Theme> themes = new ArrayList<>();
-        themes.add(new Theme("RPG"));
-        themes.add(new Theme("Action"));
-        jeu = new Jeu(themes, "Test 2", 2000,  "Dans ce jeu, tu peux jouer !");
+        themes.add(new Theme("Theme1"));
+        themes.add(new Theme("Theme2"));
+        jeu = new Jeu(themes, "Test", 2000,  "Dans ce jeu, tu peux jouer !");
 
         //Récupération des données
         Intent extraIntent = getIntent();

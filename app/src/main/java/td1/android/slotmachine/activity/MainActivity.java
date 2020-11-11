@@ -122,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
     {
         //affichage du temps restant
         public void onTick(long millisUntilFinished) {
-            ((TextView)findViewById(R.id.countDown)).setText(millisUntilFinished / 1000 + " secondes restantes");
+            ((TextView)findViewById(R.id.countDown)).setText( getString(R.string.app_seconds, millisUntilFinished / 1000));
         }
 
         //Quand le delay est terminé, on envoi les thèmes selectionné avec Intent dans l'activity ChoiceActivity
         public void onFinish() {
-            ((TextView)findViewById(R.id.countDown)).setText("Terminé!");
+            ((TextView)findViewById(R.id.countDown)).setText( getString(R.string.app_finished));
             Intent intent = new Intent(getApplicationContext(),ChoiceActivity.class);
             List<Theme> themeToNextAct = new ArrayList<>();
             themeToNextAct.add(new Theme(((TextView) findViewById(R.id.Slot1)).getText().toString()));
