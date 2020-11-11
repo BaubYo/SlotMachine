@@ -60,18 +60,18 @@
             android:text="Entrez le résume du jeu :"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-            android:id="@+id/promptsJeuResume"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text">
-        </EditText>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/promptsJeuResume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/textView"
