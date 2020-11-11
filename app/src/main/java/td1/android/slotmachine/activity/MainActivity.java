@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                                 String sJeuResume = jeuResume.getText().toString();
                                 storage.getJeux().add(new Jeu(themeSelect,sJeuName,sJeuAn,sJeuResume));
                                 storage.saveJeux();
-                                Toast.makeText(getApplicationContext(), sJeuName + " à été ajouté", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
+                                Toast.makeText(getApplicationContext(), getString(R.string.app_toast_add, sJeuName), Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                             }
                         })
                         .setNegativeButton(R.string.app_button_cancel, new DialogInterface.OnClickListener() {
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                                 String temp = themeName.getText().toString();
                                 storage.getThemes().add(new Theme(temp));
                                 storage.saveThemes();
-                                Toast.makeText(getApplicationContext(), temp + " à été ajouté", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
+                                Toast.makeText(getApplicationContext(), getString(R.string.app_toast_add, temp), Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                             }
                         })
                         .setNegativeButton(R.string.app_button_cancel, new DialogInterface.OnClickListener() {
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                         Theme ancienTheme = storage.getThemes().get(listThemeDel.getChildViewHolder(v).getAdapterPosition());
                         storage.getThemes().remove(ancienTheme);
                         this.notifyDataSetChanged();
-                        Toast.makeText(getApplicationContext(), ancienTheme.getNom() + " à été supprimé", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
+                        Toast.makeText(getApplicationContext(), getString(R.string.app_toast_delete, ancienTheme.getNom()), Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                     }
                 });
                 //Sauvegarde
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                         Jeu ancienJeu = storage.getJeux().get(listJeuDel.getChildViewHolder(v).getAdapterPosition());
                         storage.getJeux().remove(ancienJeu);
                         this.notifyDataSetChanged();
-                        Toast.makeText(getApplicationContext(), ancienJeu.getNom() + " à été supprimé", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
+                        Toast.makeText(getApplicationContext(), getString(R.string.app_toast_delete, ancienJeu.getNom()), Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                     }
                 });
                 //Sauvegarde
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                                         //Fonction qui permet de faire en sorte que les jeux avec le Theme dont le nom a ete modifier ont le meme theme mais avec le nom deja modifier
                                         storage.changeThemeChaqueJeu(tempNomAncien,((EditText)layoutThemeModify2.findViewById(R.id.promptsThemeName)).getText().toString());
                                         listThemeModify.getAdapter().notifyDataSetChanged();
-                                        Toast.makeText(getApplicationContext(), tempNomAncien + " à été modifié", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
+                                        Toast.makeText(getApplicationContext(), getString(R.string.app_toast_modify, tempNomAncien), Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                                     }
                                 })
                                 .setNegativeButton(R.string.app_button_cancel, new DialogInterface.OnClickListener() {
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         listJeuModify.getAdapter().notifyDataSetChanged();
                                         storage.saveJeux();
-                                        Toast.makeText(getApplicationContext(), ancienJeu.getNom() + " à été modifié", Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
+                                        Toast.makeText(getApplicationContext(),  getString(R.string.app_toast_modify, ancienJeu.getNom()), Toast.LENGTH_SHORT).show(); //Affichage d'un Toast
                                     }
                                 })
                                 .setNegativeButton(R.string.app_button_cancel, new DialogInterface.OnClickListener() {
